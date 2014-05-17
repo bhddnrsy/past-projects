@@ -1,0 +1,1243 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/01/11 23:54:40
+TicTacToe   (TicTacToe.asm)				     Page 1 - 1
+
+
+				TITLE TicTacToe   (TicTacToe.asm)
+
+				INCLUDE Irvine32.inc
+			      C ; Include file for Irvine32.lib             (Irvine32.inc)
+			      C 
+			      C INCLUDE SmallWin.inc		; MS-Windows prototypes, structures, and constants
+			      C .NOLIST
+			      C .LIST
+			      C 
+			      C .NOLIST
+			      C .LIST
+			      C 
+				INCLUDE Macros.inc
+			      C .NOLIST
+			      C .LIST
+			      C 
+
+ 00000000			.data
+
+ 00000000 C9 CD CB CD CB	table1 BYTE 201,205,203,205,203,205,187,0
+	   CD BB 00
+ 00000008 BA 20 BA 20 BA	table2 BYTE 186,32,186,32,186,32,186,0
+	   20 BA 00
+ 00000010 CC CD CE CD CE	table3 BYTE 204,205,206,205,206,205,185,0
+	   CD B9 00
+ 00000018 C8 CD CA CD CA	table4 BYTE 200,205,202,205,202,205,188,0
+	   CD BC 00
+ 00000020 07 00			beep BYTE 7,0
+ 00000022 00000000		val1 DWORD 0
+ 00000026  0000001E [		player1 DWORD 30 dup(?)
+	    00000000
+	   ]
+ 0000009E  0000001E [		player2 DWORD 30 dup(?)
+	    00000000
+	   ]
+ 00000116 00			valx BYTE 0
+ 00000117 00			valy BYTE 0
+ 00000118 00000000		randVal DWORD ?
+ 0000011C 00			yesno BYTE ?
+				table PROTO
+				Play1 PROTO
+				Play2 PROTO
+				PlayComp PROTO
+
+ 00000000			.code
+
+ 00000000			main PROC
+				mWrite "Welcome to tic-tac-toe game.",0
+			     1	;
+tictactoe1.asm(28) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(28): Main Line Code
+ 0000011D		     1		.data				
+ 0000011D 57 65 6C 63 6F     1		??0000 BYTE "Welcome to tic-tac-toe game.",0		
+	   6D 65 20 74 6F
+	   20 74 69 63 2D
+	   74 61 63 2D 74
+	   6F 65 20 67 61
+	   6D 65 2E 00
+ 00000000		     1		.code
+ 00000000  52		     1		push edx
+ 00000001  BA 0000011D R     1		mov  edx,OFFSET ??0000
+ 00000006  E8 00000000 E     1		call Writestring
+ 0000000B  5A		     1		pop  edx
+ 0000000C  E8 00000000 E	call crlf
+
+ 00000011			y_again:
+				mWrite "1 Player vs Computer",0
+			     1	;
+tictactoe1.asm(32) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(32): Main Line Code
+ 0000013A		     1		.data				
+ 0000013A 31 20 50 6C 61     1		??0001 BYTE "1 Player vs Computer",0		
+	   79 65 72 20 76
+	   73 20 43 6F 6D
+	   70 75 74 65 72
+	   00
+ 00000011		     1		.code
+ 00000011  52		     1		push edx
+ 00000012  BA 0000013A R     1		mov  edx,OFFSET ??0001
+ 00000017  E8 00000000 E     1		call Writestring
+ 0000001C  5A		     1		pop  edx
+ 0000001D  E8 00000000 E	call crlf
+				mWrite "2 Player vs Player",0
+			     1	;
+tictactoe1.asm(34) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(34): Main Line Code
+ 0000014F		     1		.data				
+ 0000014F 32 20 50 6C 61     1		??0002 BYTE "2 Player vs Player",0		
+	   79 65 72 20 76
+	   73 20 50 6C 61
+	   79 65 72 00
+ 00000022		     1		.code
+ 00000022  52		     1		push edx
+ 00000023  BA 0000014F R     1		mov  edx,OFFSET ??0002
+ 00000028  E8 00000000 E     1		call Writestring
+ 0000002D  5A		     1		pop  edx
+ 0000002E  E8 00000000 E	call crlf
+
+ 00000033			first:
+				mWrite "Choose a game type (1 or 2) : ",0
+			     1	;
+tictactoe1.asm(38) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(38): Main Line Code
+ 00000162		     1		.data				
+ 00000162 43 68 6F 6F 73     1		??0003 BYTE "Choose a game type (1 or 2) : ",0		
+	   65 20 61 20 67
+	   61 6D 65 20 74
+	   79 70 65 20 28
+	   31 20 6F 72 20
+	   32 29 20 3A 20
+	   00
+ 00000033		     1		.code
+ 00000033  52		     1		push edx
+ 00000034  BA 00000162 R     1		mov  edx,OFFSET ??0003
+ 00000039  E8 00000000 E     1		call Writestring
+ 0000003E  5A		     1		pop  edx
+
+ 0000003F  E8 00000000 E	call ReadInt
+ 00000044  A3 00000022 R	mov val1,eax
+ 00000049  B8 00000001		mov eax,1
+ 0000004E  3B 05 00000022 R	cmp eax,val1
+ 00000054  74 14		je one
+ 00000056  B8 00000002		mov eax,2
+ 0000005B  3B 05 00000022 R	cmp eax,val1
+ 00000061  74 28		je two
+ 00000063  EB 69		jmp other
+ 00000065  E8 00000000 E	call crlf
+
+ 0000006A			one:
+				mWrite "Enter player name : ",0
+			     1	;
+tictactoe1.asm(52) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(52): Main Line Code
+ 00000181		     1		.data				
+ 00000181 45 6E 74 65 72     1		??0004 BYTE "Enter player name : ",0		
+	   20 70 6C 61 79
+	   65 72 20 6E 61
+	   6D 65 20 3A 20
+	   00
+ 0000006A		     1		.code
+ 0000006A  52		     1		push edx
+ 0000006B  BA 00000181 R     1		mov  edx,OFFSET ??0004
+ 00000070  E8 00000000 E     1		call Writestring
+ 00000075  5A		     1		pop  edx
+				mReadStr player1
+ 00000076  51		     1		push ecx
+ 00000077  52		     1		push edx
+ 00000078  BA 00000026 R     1		mov  edx,OFFSET player1
+ 0000007D  B9 00000077	     1		mov  ecx,(SIZEOF player1) - 1
+ 00000082  E8 00000000 E     1		call ReadString
+ 00000087  5A		     1		pop  edx
+ 00000088  59		     1		pop  ecx
+ 00000089  EB 63		jmp cont1
+
+ 0000008B			two:
+				mWrite "Enter 1. player name : ",0
+			     1	;
+tictactoe1.asm(57) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(57): Main Line Code
+ 00000196		     1		.data				
+ 00000196 45 6E 74 65 72     1		??0005 BYTE "Enter 1. player name : ",0		
+	   20 31 2E 20 70
+	   6C 61 79 65 72
+	   20 6E 61 6D 65
+	   20 3A 20 00
+ 0000008B		     1		.code
+ 0000008B  52		     1		push edx
+ 0000008C  BA 00000196 R     1		mov  edx,OFFSET ??0005
+ 00000091  E8 00000000 E     1		call Writestring
+ 00000096  5A		     1		pop  edx
+				mReadStr player1
+ 00000097  51		     1		push ecx
+ 00000098  52		     1		push edx
+ 00000099  BA 00000026 R     1		mov  edx,OFFSET player1
+ 0000009E  B9 00000077	     1		mov  ecx,(SIZEOF player1) - 1
+ 000000A3  E8 00000000 E     1		call ReadString
+ 000000A8  5A		     1		pop  edx
+ 000000A9  59		     1		pop  ecx
+				mWrite "Enter 2. player name : ",0
+			     1	;
+tictactoe1.asm(59) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(59): Main Line Code
+ 000001AE		     1		.data				
+ 000001AE 45 6E 74 65 72     1		??0006 BYTE "Enter 2. player name : ",0		
+	   20 32 2E 20 70
+	   6C 61 79 65 72
+	   20 6E 61 6D 65
+	   20 3A 20 00
+ 000000AA		     1		.code
+ 000000AA  52		     1		push edx
+ 000000AB  BA 000001AE R     1		mov  edx,OFFSET ??0006
+ 000000B0  E8 00000000 E     1		call Writestring
+ 000000B5  5A		     1		pop  edx
+				mReadStr player2
+ 000000B6  51		     1		push ecx
+ 000000B7  52		     1		push edx
+ 000000B8  BA 0000009E R     1		mov  edx,OFFSET player2
+ 000000BD  B9 00000077	     1		mov  ecx,(SIZEOF player2) - 1
+ 000000C2  E8 00000000 E     1		call ReadString
+ 000000C7  5A		     1		pop  edx
+ 000000C8  59		     1		pop  ecx
+ 000000C9  E9 000000CF		jmp cont2
+
+ 000000CE			other:
+ 000000CE  A0 00000020 R	mov al,beep[0]
+ 000000D3  E8 00000000 E	call WriteChar
+				mWrite "Wrong entry!",0
+			     1	;
+tictactoe1.asm(66) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(66): Main Line Code
+ 000001C6		     1		.data				
+ 000001C6 57 72 6F 6E 67     1		??0007 BYTE "Wrong entry!",0		
+	   20 65 6E 74 72
+	   79 21 00
+ 000000D8		     1		.code
+ 000000D8  52		     1		push edx
+ 000000D9  BA 000001C6 R     1		mov  edx,OFFSET ??0007
+ 000000DE  E8 00000000 E     1		call Writestring
+ 000000E3  5A		     1		pop  edx
+ 000000E4  E8 00000000 E	call crlf
+ 000000E9  E9 FFFFFF45		jmp first
+
+ 000000EE			cont1:
+ 000000EE  E8 00000000 E	call clrscr
+ 000000F3  E8 0000016D		call table
+ 000000F8  B9 00000004		mov ecx,4
+ 000000FD  60			pushad
+ 000000FE			L1:
+				mGotoxy 1,7
+ 000000FE  52		     1		push edx
+ 000000FF  B6 07	     1	    mov  dh,7
+ 00000101  B2 01	     1	    mov  dl,1
+ 00000103  E8 00000000 E     1		call Gotoxy
+ 00000108  5A		     1		pop  edx
+ 00000109  E8 0000021E		call Play1
+ 0000010E  E8 00000000 E	call crlf
+ 00000113  E8 00000000 E	call crlf
+ 00000118  E8 00000000 E	call crlf
+ 0000011D  E8 00000475		call PlayComp
+ 00000122  E2 DA		loop l1
+ 00000124  61			popad
+				mGotoxy 1,7
+ 00000125  52		     1		push edx
+ 00000126  B6 07	     1	    mov  dh,7
+ 00000128  B2 01	     1	    mov  dl,1
+ 0000012A  E8 00000000 E     1		call Gotoxy
+ 0000012F  5A		     1		pop  edx
+ 00000130  E8 000001F7		call Play1
+
+				mGotoxy 16,1
+ 00000135  52		     1		push edx
+ 00000136  B6 01	     1	    mov  dh,1
+ 00000138  B2 10	     1	    mov  dl,16
+ 0000013A  E8 00000000 E     1		call Gotoxy
+ 0000013F  5A		     1		pop  edx
+				mWrite "Game tied !"
+ 000001D3		     1		.data				
+ 000001D3 47 61 6D 65 20     1		??0008 BYTE "Game tied !",0		
+	   74 69 65 64 20
+	   21 00
+ 00000140		     1		.code
+ 00000140  52		     1		push edx
+ 00000141  BA 000001D3 R     1		mov  edx,OFFSET ??0008
+ 00000146  E8 00000000 E     1		call Writestring
+ 0000014B  5A		     1		pop  edx
+
+ 0000014C			again2:
+				mGotoxy 16,2
+ 0000014C  52		     1		push edx
+ 0000014D  B6 02	     1	    mov  dh,2
+ 0000014F  B2 10	     1	    mov  dl,16
+ 00000151  E8 00000000 E     1		call Gotoxy
+ 00000156  5A		     1		pop  edx
+				mWrite "Do you want to play again?(y/n)"
+ 000001DF		     1		.data				
+ 000001DF 44 6F 20 79 6F     1		??0009 BYTE "Do you want to play again?(y/n)",0		
+	   75 20 77 61 6E
+	   74 20 74 6F 20
+	   70 6C 61 79 20
+	   61 67 61 69 6E
+	   3F 28 79 2F 6E
+	   29 00
+ 00000157		     1		.code
+ 00000157  52		     1		push edx
+ 00000158  BA 000001DF R     1		mov  edx,OFFSET ??0009
+ 0000015D  E8 00000000 E     1		call Writestring
+ 00000162  5A		     1		pop  edx
+ 00000163  B0 00		mov al,0
+ 00000165  E8 00000000 E	call ReadChar
+ 0000016A  A2 0000011C R	mov yesno,al
+ 0000016F  B0 79		mov al,'y'
+ 00000171  3A 05 0000011C R	cmp al,yesno
+ 00000177  74 1A		je y_again1
+ 00000179  B0 6E		mov al,'n'
+ 0000017B  3A 05 0000011C R	cmp al,yesno
+ 00000181  0F 84 000000D2	je ext
+ 00000187  A0 00000020 R	mov al,beep[0]
+ 0000018C  E8 00000000 E	call WriteChar
+ 00000191  EB 68		jmp again
+
+ 00000193			y_again1:
+ 00000193  E8 00000000 E		call clrscr
+ 00000198  E9 FFFFFE74			jmp y_again
+
+ 0000019D			cont2:
+ 0000019D  E8 00000000 E	call clrscr
+ 000001A2  E8 000000BE		call table
+ 000001A7  B9 00000004		mov ecx,4
+ 000001AC  60			pushad
+ 000001AD			L2:
+				mGotoxy 1,7
+ 000001AD  52		     1		push edx
+ 000001AE  B6 07	     1	    mov  dh,7
+ 000001B0  B2 01	     1	    mov  dl,1
+ 000001B2  E8 00000000 E     1		call Gotoxy
+ 000001B7  5A		     1		pop  edx
+ 000001B8  E8 0000016F		call Play1
+ 000001BD  E8 00000000 E	call crlf
+ 000001C2  E8 00000000 E	call crlf
+ 000001C7  E8 00000000 E	call crlf
+ 000001CC  E8 0000029C		call Play2
+ 000001D1  E2 DA		loop l2
+ 000001D3  61			popad
+				mGotoxy 1,7
+ 000001D4  52		     1		push edx
+ 000001D5  B6 07	     1	    mov  dh,7
+ 000001D7  B2 01	     1	    mov  dl,1
+ 000001D9  E8 00000000 E     1		call Gotoxy
+ 000001DE  5A		     1		pop  edx
+ 000001DF  E8 00000148		call Play1
+
+				mGotoxy 16,1
+ 000001E4  52		     1		push edx
+ 000001E5  B6 01	     1	    mov  dh,1
+ 000001E7  B2 10	     1	    mov  dl,16
+ 000001E9  E8 00000000 E     1		call Gotoxy
+ 000001EE  5A		     1		pop  edx
+				mWrite "Game tied !"
+ 000001FF		     1		.data				
+ 000001FF 47 61 6D 65 20     1		??000A BYTE "Game tied !",0		
+	   74 69 65 64 20
+	   21 00
+ 000001EF		     1		.code
+ 000001EF  52		     1		push edx
+ 000001F0  BA 000001FF R     1		mov  edx,OFFSET ??000A
+ 000001F5  E8 00000000 E     1		call Writestring
+ 000001FA  5A		     1		pop  edx
+
+ 000001FB			again:
+				mGotoxy 16,2
+ 000001FB  52		     1		push edx
+ 000001FC  B6 02	     1	    mov  dh,2
+ 000001FE  B2 10	     1	    mov  dl,16
+ 00000200  E8 00000000 E     1		call Gotoxy
+ 00000205  5A		     1		pop  edx
+				mWrite "Do you want to play again?(y/n)"
+ 0000020B		     1		.data				
+ 0000020B 44 6F 20 79 6F     1		??000B BYTE "Do you want to play again?(y/n)",0		
+	   75 20 77 61 6E
+	   74 20 74 6F 20
+	   70 6C 61 79 20
+	   61 67 61 69 6E
+	   3F 28 79 2F 6E
+	   29 00
+ 00000206		     1		.code
+ 00000206  52		     1		push edx
+ 00000207  BA 0000020B R     1		mov  edx,OFFSET ??000B
+ 0000020C  E8 00000000 E     1		call Writestring
+ 00000211  5A		     1		pop  edx
+ 00000212  B0 00		mov al,0
+ 00000214  E8 00000000 E	call ReadChar
+ 00000219  A2 0000011C R	mov yesno,al
+ 0000021E  B0 79		mov al,'y'
+ 00000220  3A 05 0000011C R	cmp al,yesno
+ 00000226  0F 84 FFFFFF67	je y_again1
+ 0000022C  B0 6E		mov al,'n'
+ 0000022E  3A 05 0000011C R	cmp al,yesno
+ 00000234  74 23		je ext
+ 00000236  A0 00000020 R	mov al,beep[0]
+ 0000023B  E8 00000000 E	call WriteChar
+ 00000240  EB B9		jmp again
+
+
+				;call table
+				mGotoxy 20,20
+ 00000242  52		     1		push edx
+ 00000243  B6 14	     1	    mov  dh,20
+ 00000245  B2 14	     1	    mov  dl,20
+ 00000247  E8 00000000 E     1		call Gotoxy
+ 0000024C  5A		     1		pop  edx
+				mWrite " ",0
+			     1	;
+tictactoe1.asm(149) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(149): Main Line Code
+ 0000022B		     1		.data				
+ 0000022B 20 00		     1		??000C BYTE " ",0		
+ 0000024D		     1		.code
+ 0000024D  52		     1		push edx
+ 0000024E  BA 0000022B R     1		mov  edx,OFFSET ??000C
+ 00000253  E8 00000000 E     1		call Writestring
+ 00000258  5A		     1		pop  edx
+				;mov eax,3
+				;call RandomRange
+				;mov randVal,eax
+				;call WriteDec
+				;mov eax,1
+				;cmp eax,randVal
+				;je cont_
+				;
+				;cont__:
+				;call clrscr
+				;mWrite "Computer",0
+
+				;some executions
+				;mov eax,1000000
+				;call Delay
+				;cont_:
+ 00000259			ext:
+ 00000259  E8 00000000 E	call clrscr
+					exit
+					
+ 00000265			main ENDP
+
+
+ 00000265			table PROC
+
+ 00000265  B9 00000007		mov ecx,7
+ 0000026A  BA 00000000		mov edx,0
+ 0000026F			L1:
+ 0000026F  8A 82 00000000 R	mov al,table1[edx]
+ 00000275  E8 00000000 E	call WriteChar
+
+ 0000027A  42			inc edx
+
+ 0000027B  E2 F2		loop L1
+ 0000027D  E8 00000000 E	call crlf
+ 00000282  B9 00000007		mov ecx,7
+ 00000287  BA 00000000		mov edx,0
+
+ 0000028C			L2:
+
+ 0000028C  8A 82 00000008 R	mov al,table2[edx]
+ 00000292  E8 00000000 E	call WriteChar
+ 00000297  42			inc edx
+ 00000298  E2 F2		loop L2	
+
+ 0000029A  B9 00000007		mov ecx,7
+ 0000029F  BA 00000000		mov edx,0
+ 000002A4  E8 00000000 E	call crlf
+ 000002A9			L3:
+
+ 000002A9  8A 82 00000010 R	mov al,table3[edx]
+ 000002AF  E8 00000000 E	call WriteChar
+ 000002B4  42			inc edx
+ 000002B5  E2 F2		loop L3
+
+ 000002B7  E8 00000000 E	call crlf
+ 000002BC  B9 00000007		mov ecx,7
+ 000002C1  BA 00000000		mov edx,0
+
+ 000002C6			L4:
+
+ 000002C6  8A 82 00000008 R	mov al,table2[edx]
+ 000002CC  E8 00000000 E	call WriteChar
+ 000002D1  42			inc edx
+ 000002D2  E2 F2		loop L4
+
+ 000002D4  B9 00000007		mov ecx,7
+ 000002D9  BA 00000000		mov edx,0
+ 000002DE  E8 00000000 E	call crlf
+ 000002E3			L5:
+
+ 000002E3  8A 82 00000010 R	mov al,table3[edx]
+ 000002E9  E8 00000000 E	call WriteChar
+ 000002EE  42			inc edx
+ 000002EF  E2 F2		loop L5
+
+
+
+ 000002F1  E8 00000000 E	call crlf
+ 000002F6  B9 00000007		mov ecx,7
+ 000002FB  BA 00000000		mov edx,0
+
+ 00000300			L6:
+
+ 00000300  8A 82 00000008 R	mov al,table2[edx]
+ 00000306  E8 00000000 E	call WriteChar
+ 0000030B  42			inc edx
+ 0000030C  E2 F2		loop L6	
+
+ 0000030E  E8 00000000 E	call crlf
+ 00000313  B9 00000007		mov ecx,7
+ 00000318  BA 00000000		mov edx,0
+
+ 0000031D			L7:
+
+ 0000031D  8A 82 00000018 R	mov al,table4[edx]
+ 00000323  E8 00000000 E	call WriteChar
+ 00000328  42			inc edx
+ 00000329  E2 F2		loop L7
+ 0000032B  C3			ret
+ 0000032C			table ENDP
+
+ 0000032C			Play1 PROC 
+				;call clrscr
+				;call table
+ 0000032C  E8 00000000 E	call crlf
+ 00000331  52			push edx
+ 00000332  BA 00000026 R	mov edx,OFFSET player1
+ 00000337  E8 00000000 E	call WriteString
+ 0000033C  5A			pop edx
+				mWrite " moves (x)"
+ 0000022D		     1		.data				
+ 0000022D 20 6D 6F 76 65     1		??000D BYTE " moves (x)",0		
+	   73 20 28 78 29
+	   00
+ 0000033D		     1		.code
+ 0000033D  52		     1		push edx
+ 0000033E  BA 0000022D R     1		mov  edx,OFFSET ??000D
+ 00000343  E8 00000000 E     1		call Writestring
+ 00000348  5A		     1		pop  edx
+ 00000349  E8 00000000 E	call crlf
+ 0000034E			cont:
+				mWrite "Enter the x coordinate : "
+ 00000238		     1		.data				
+ 00000238 45 6E 74 65 72     1		??000E BYTE "Enter the x coordinate : ",0		
+	   20 74 68 65 20
+	   78 20 63 6F 6F
+	   72 64 69 6E 61
+	   74 65 20 3A 20
+	   00
+ 0000034E		     1		.code
+ 0000034E  52		     1		push edx
+ 0000034F  BA 00000238 R     1		mov  edx,OFFSET ??000E
+ 00000354  E8 00000000 E     1		call Writestring
+ 00000359  5A		     1		pop  edx
+ 0000035A			wr1:
+ 0000035A  E8 00000000 E	call readInt
+ 0000035F  A2 00000116 R	mov valx,al
+ 00000364  B4 02		mov ah,2
+ 00000366  B7 03		mov bh,3
+ 00000368  3A 25 00000116 R	cmp ah,valx
+ 0000036E  74 40		je inc1_
+ 00000370  3A 3D 00000116 R	cmp bh,valx
+ 00000376  74 41		je inc2_
+ 00000378  B4 01		mov ah,1
+ 0000037A  3A 25 00000116 R	cmp ah,valx
+ 00000380  74 40		je cont1
+ 00000382  A0 00000020 R	mov al,beep[0]
+ 00000387  E8 00000000 E	call WriteChar
+				mGotoxy 25,9
+ 0000038C  52		     1		push edx
+ 0000038D  B6 09	     1	    mov  dh,9
+ 0000038F  B2 19	     1	    mov  dl,25
+ 00000391  E8 00000000 E     1		call Gotoxy
+ 00000396  5A		     1		pop  edx
+				mWrite "             ",0
+			     1	;
+tictactoe1.asm(279) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(279): Main Line Code
+ 00000252		     1		.data				
+ 00000252 20 20 20 20 20     1		??000F BYTE "             ",0		
+	   20 20 20 20 20
+	   20 20 20 00
+ 00000397		     1		.code
+ 00000397  52		     1		push edx
+ 00000398  BA 00000252 R     1		mov  edx,OFFSET ??000F
+ 0000039D  E8 00000000 E     1		call Writestring
+ 000003A2  5A		     1		pop  edx
+				mGotoxy 25,9
+ 000003A3  52		     1		push edx
+ 000003A4  B6 09	     1	    mov  dh,9
+ 000003A6  B2 19	     1	    mov  dl,25
+ 000003A8  E8 00000000 E     1		call Gotoxy
+ 000003AD  5A		     1		pop  edx
+ 000003AE  EB AA		jmp wr1
+
+
+ 000003B0			inc1_:
+ 000003B0  80 05 00000116 R		add valx,1
+	   01
+ 000003B7  EB 09			jmp cont1
+ 000003B9			inc2_:
+ 000003B9  80 05 00000116 R		add valx,2
+	   02
+ 000003C0  EB 00			jmp cont1
+
+ 000003C2			cont1:
+				mWrite "Enter the y coordinate : "
+ 00000260		     1		.data				
+ 00000260 45 6E 74 65 72     1		??0010 BYTE "Enter the y coordinate : ",0		
+	   20 74 68 65 20
+	   79 20 63 6F 6F
+	   72 64 69 6E 61
+	   74 65 20 3A 20
+	   00
+ 000003C2		     1		.code
+ 000003C2  52		     1		push edx
+ 000003C3  BA 00000260 R     1		mov  edx,OFFSET ??0010
+ 000003C8  E8 00000000 E     1		call Writestring
+ 000003CD  5A		     1		pop  edx
+ 000003CE			wr2:
+ 000003CE  E8 00000000 E	call readInt
+ 000003D3  A2 00000117 R	mov valy,al
+ 000003D8  B4 02		mov ah,2
+ 000003DA  B7 03		mov bh,3
+ 000003DC  3A 25 00000117 R	cmp ah,valy
+ 000003E2  74 40		je inc3_
+ 000003E4  3A 3D 00000117 R	cmp bh,valy
+ 000003EA  74 41		je inc4_
+ 000003EC  B4 01		mov ah,1
+ 000003EE  3A 25 00000117 R	cmp ah,valy
+ 000003F4  74 40		je cont2
+ 000003F6  A0 00000020 R	mov al,beep[0]
+ 000003FB  E8 00000000 E	call WriteChar
+				mGotoxy 25,10
+ 00000400  52		     1		push edx
+ 00000401  B6 0A	     1	    mov  dh,10
+ 00000403  B2 19	     1	    mov  dl,25
+ 00000405  E8 00000000 E     1		call Gotoxy
+ 0000040A  5A		     1		pop  edx
+				mWrite "             ",0
+			     1	;
+tictactoe1.asm(308) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(308): Main Line Code
+ 0000027A		     1		.data				
+ 0000027A 20 20 20 20 20     1		??0011 BYTE "             ",0		
+	   20 20 20 20 20
+	   20 20 20 00
+ 0000040B		     1		.code
+ 0000040B  52		     1		push edx
+ 0000040C  BA 0000027A R     1		mov  edx,OFFSET ??0011
+ 00000411  E8 00000000 E     1		call Writestring
+ 00000416  5A		     1		pop  edx
+				mGotoxy 25,10
+ 00000417  52		     1		push edx
+ 00000418  B6 0A	     1	    mov  dh,10
+ 0000041A  B2 19	     1	    mov  dl,25
+ 0000041C  E8 00000000 E     1		call Gotoxy
+ 00000421  5A		     1		pop  edx
+ 00000422  EB AA		jmp wr2
+
+ 00000424			inc3_:
+ 00000424  80 05 00000117 R		add valy,1
+	   01
+ 0000042B  EB 09			jmp cont2
+ 0000042D			inc4_:
+ 0000042D  80 05 00000117 R		add valy,2
+	   02
+ 00000434  EB 00			jmp cont2
+
+ 00000436			cont2:
+				;call clrscr
+				;call table
+				mGotoxy valy,valx
+ 00000436  52		     1		push edx
+ 00000437  8A 35 00000116 R  1	    mov  dh,valx
+ 0000043D  8A 15 00000117 R  1	    mov  dl,valy
+ 00000443  E8 00000000 E     1		call Gotoxy
+ 00000448  5A		     1		pop  edx
+				mWrite "x"
+ 00000288		     1		.data				
+ 00000288 78 00		     1		??0012 BYTE "x",0		
+ 00000449		     1		.code
+ 00000449  52		     1		push edx
+ 0000044A  BA 00000288 R     1		mov  edx,OFFSET ??0012
+ 0000044F  E8 00000000 E     1		call Writestring
+ 00000454  5A		     1		pop  edx
+				mGotoxy 1,7
+ 00000455  52		     1		push edx
+ 00000456  B6 07	     1	    mov  dh,7
+ 00000458  B2 01	     1	    mov  dl,1
+ 0000045A  E8 00000000 E     1		call Gotoxy
+ 0000045F  5A		     1		pop  edx
+				mWrite " "
+ 0000028A		     1		.data				
+ 0000028A 20 00		     1		??0013 BYTE " ",0		
+ 00000460		     1		.code
+ 00000460  52		     1		push edx
+ 00000461  BA 0000028A R     1		mov  edx,OFFSET ??0013
+ 00000466  E8 00000000 E     1		call Writestring
+ 0000046B  5A		     1		pop  edx
+ 0000046C  C3			ret
+ 0000046D			Play1 ENDP
+
+ 0000046D			Play2 PROC 
+				;call clrscr
+				;call table
+ 0000046D  E8 00000000 E	call crlf
+ 00000472  52			push edx
+ 00000473  BA 0000009E R	mov edx,OFFSET player2
+ 00000478  E8 00000000 E	call WriteString
+ 0000047D  5A			pop edx
+				mWrite " moves (o)",0
+			     1	;
+tictactoe1.asm(337) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(337): Main Line Code
+ 0000028C		     1		.data				
+ 0000028C 20 6D 6F 76 65     1		??0014 BYTE " moves (o)",0		
+	   73 20 28 6F 29
+	   00
+ 0000047E		     1		.code
+ 0000047E  52		     1		push edx
+ 0000047F  BA 0000028C R     1		mov  edx,OFFSET ??0014
+ 00000484  E8 00000000 E     1		call Writestring
+ 00000489  5A		     1		pop  edx
+ 0000048A  E8 00000000 E	call crlf
+
+ 0000048F			cont:
+				mWrite "Enter the x coordinate : ",0
+			     1	;
+tictactoe1.asm(341) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(341): Main Line Code
+ 00000297		     1		.data				
+ 00000297 45 6E 74 65 72     1		??0015 BYTE "Enter the x coordinate : ",0		
+	   20 74 68 65 20
+	   78 20 63 6F 6F
+	   72 64 69 6E 61
+	   74 65 20 3A 20
+	   00
+ 0000048F		     1		.code
+ 0000048F  52		     1		push edx
+ 00000490  BA 00000297 R     1		mov  edx,OFFSET ??0015
+ 00000495  E8 00000000 E     1		call Writestring
+ 0000049A  5A		     1		pop  edx
+ 0000049B			wr1:
+ 0000049B  E8 00000000 E	call readInt
+ 000004A0  A2 00000116 R	mov valx,al
+ 000004A5  B4 02		mov ah,2
+ 000004A7  B7 03		mov bh,3
+ 000004A9  3A 25 00000116 R	cmp ah,valx
+ 000004AF  74 40		je inc1_
+ 000004B1  3A 3D 00000116 R	cmp bh,valx
+ 000004B7  74 41		je inc2_
+ 000004B9  B4 01		mov ah,1
+ 000004BB  3A 25 00000116 R	cmp ah,valx
+ 000004C1  74 40		je cont1
+ 000004C3  A0 00000020 R	mov al,beep[0]
+ 000004C8  E8 00000000 E	call WriteChar
+				mGotoxy 25,12
+ 000004CD  52		     1		push edx
+ 000004CE  B6 0C	     1	    mov  dh,12
+ 000004D0  B2 19	     1	    mov  dl,25
+ 000004D2  E8 00000000 E     1		call Gotoxy
+ 000004D7  5A		     1		pop  edx
+				mWrite "             ",0
+			     1	;
+tictactoe1.asm(357) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(357): Main Line Code
+ 000002B1		     1		.data				
+ 000002B1 20 20 20 20 20     1		??0016 BYTE "             ",0		
+	   20 20 20 20 20
+	   20 20 20 00
+ 000004D8		     1		.code
+ 000004D8  52		     1		push edx
+ 000004D9  BA 000002B1 R     1		mov  edx,OFFSET ??0016
+ 000004DE  E8 00000000 E     1		call Writestring
+ 000004E3  5A		     1		pop  edx
+				mGotoxy 25,12
+ 000004E4  52		     1		push edx
+ 000004E5  B6 0C	     1	    mov  dh,12
+ 000004E7  B2 19	     1	    mov  dl,25
+ 000004E9  E8 00000000 E     1		call Gotoxy
+ 000004EE  5A		     1		pop  edx
+ 000004EF  EB AA		jmp wr1
+
+ 000004F1			inc1_:
+ 000004F1  80 05 00000116 R		add valx,1
+	   01
+ 000004F8  EB 09			jmp cont1
+ 000004FA			inc2_:
+ 000004FA  80 05 00000116 R		add valx,2
+	   02
+ 00000501  EB 00			jmp cont1
+
+ 00000503			cont1:
+				mWrite "Enter the y coordinate : ",0
+			     1	;
+tictactoe1.asm(369) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(369): Main Line Code
+ 000002BF		     1		.data				
+ 000002BF 45 6E 74 65 72     1		??0017 BYTE "Enter the y coordinate : ",0		
+	   20 74 68 65 20
+	   79 20 63 6F 6F
+	   72 64 69 6E 61
+	   74 65 20 3A 20
+	   00
+ 00000503		     1		.code
+ 00000503  52		     1		push edx
+ 00000504  BA 000002BF R     1		mov  edx,OFFSET ??0017
+ 00000509  E8 00000000 E     1		call Writestring
+ 0000050E  5A		     1		pop  edx
+ 0000050F			wr2:
+ 0000050F  E8 00000000 E	call readInt
+ 00000514  A2 00000117 R	mov valy,al
+ 00000519  B4 02		mov ah,2
+ 0000051B  B7 03		mov bh,3
+ 0000051D  3A 25 00000117 R	cmp ah,valy
+ 00000523  74 40		je inc3_
+ 00000525  3A 3D 00000117 R	cmp bh,valy
+ 0000052B  74 41		je inc4_
+ 0000052D  B4 01		mov ah,1
+ 0000052F  3A 25 00000117 R	cmp ah,valy
+ 00000535  74 40		je cont2
+ 00000537  A0 00000020 R	mov al,beep[0]
+ 0000053C  E8 00000000 E	call WriteChar
+				mGotoxy 25,13
+ 00000541  52		     1		push edx
+ 00000542  B6 0D	     1	    mov  dh,13
+ 00000544  B2 19	     1	    mov  dl,25
+ 00000546  E8 00000000 E     1		call Gotoxy
+ 0000054B  5A		     1		pop  edx
+				mWrite "             ",0
+			     1	;
+tictactoe1.asm(385) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(385): Main Line Code
+ 000002D9		     1		.data				
+ 000002D9 20 20 20 20 20     1		??0018 BYTE "             ",0		
+	   20 20 20 20 20
+	   20 20 20 00
+ 0000054C		     1		.code
+ 0000054C  52		     1		push edx
+ 0000054D  BA 000002D9 R     1		mov  edx,OFFSET ??0018
+ 00000552  E8 00000000 E     1		call Writestring
+ 00000557  5A		     1		pop  edx
+				mGotoxy 25,13
+ 00000558  52		     1		push edx
+ 00000559  B6 0D	     1	    mov  dh,13
+ 0000055B  B2 19	     1	    mov  dl,25
+ 0000055D  E8 00000000 E     1		call Gotoxy
+ 00000562  5A		     1		pop  edx
+ 00000563  EB AA		jmp wr2
+
+ 00000565			inc3_:
+ 00000565  80 05 00000117 R		add valy,1
+	   01
+ 0000056C  EB 09			jmp cont2
+ 0000056E			inc4_:
+ 0000056E  80 05 00000117 R		add valy,2
+	   02
+ 00000575  EB 00			jmp cont2
+
+ 00000577			cont2:
+				;call clrscr
+				;call table
+				mGotoxy valy,valx
+ 00000577  52		     1		push edx
+ 00000578  8A 35 00000116 R  1	    mov  dh,valx
+ 0000057E  8A 15 00000117 R  1	    mov  dl,valy
+ 00000584  E8 00000000 E     1		call Gotoxy
+ 00000589  5A		     1		pop  edx
+				mWrite "o",0
+			     1	;
+tictactoe1.asm(400) : warning A4006: too many arguments in macro call
+ mWrite(1): Macro Called From
+  tictactoe1.asm(400): Main Line Code
+ 000002E7		     1		.data				
+ 000002E7 6F 00		     1		??0019 BYTE "o",0		
+ 0000058A		     1		.code
+ 0000058A  52		     1		push edx
+ 0000058B  BA 000002E7 R     1		mov  edx,OFFSET ??0019
+ 00000590  E8 00000000 E     1		call Writestring
+ 00000595  5A		     1		pop  edx
+				;mGotoxy 1,7
+				;mWrite " ",0
+ 00000596  C3			ret
+ 00000597			Play2 ENDP
+
+ 00000597			PlayComp PROC
+ 00000597  E8 00000000 E	call crlf
+ 0000059C  E8 00000000 E	call crlf
+				mWrite "Computer moves (o) -> "
+ 000002E9		     1		.data				
+ 000002E9 43 6F 6D 70 75     1		??001A BYTE "Computer moves (o) -> ",0		
+	   74 65 72 20 6D
+	   6F 76 65 73 20
+	   28 6F 29 20 2D
+	   3E 20 00
+ 000005A1		     1		.code
+ 000005A1  52		     1		push edx
+ 000005A2  BA 000002E9 R     1		mov  edx,OFFSET ??001A
+ 000005A7  E8 00000000 E     1		call Writestring
+ 000005AC  5A		     1		pop  edx
+				mWrite "1,1"
+ 00000300		     1		.data				
+ 00000300 31 2C 31 00	     1		??001B BYTE "1,1",0		
+ 000005AD		     1		.code
+ 000005AD  52		     1		push edx
+ 000005AE  BA 00000300 R     1		mov  edx,OFFSET ??001B
+ 000005B3  E8 00000000 E     1		call Writestring
+ 000005B8  5A		     1		pop  edx
+				mGotoxy 1,1
+ 000005B9  52		     1		push edx
+ 000005BA  B6 01	     1	    mov  dh,1
+ 000005BC  B2 01	     1	    mov  dl,1
+ 000005BE  E8 00000000 E     1		call Gotoxy
+ 000005C3  5A		     1		pop  edx
+				mWrite "o"
+ 00000304		     1		.data				
+ 00000304 6F 00		     1		??001C BYTE "o",0		
+ 000005C4		     1		.code
+ 000005C4  52		     1		push edx
+ 000005C5  BA 00000304 R     1		mov  edx,OFFSET ??001C
+ 000005CA  E8 00000000 E     1		call Writestring
+ 000005CF  5A		     1		pop  edx
+ 000005D0  C3			ret
+ 000005D1			PlayComp ENDP
+
+				end main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/01/11 23:54:40
+TicTacToe   (TicTacToe.asm)				     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+IsDefined  . . . . . . . . . . .	Func
+NewLine  . . . . . . . . . . . .	Proc
+ShowFlag . . . . . . . . . . . .	Proc
+ShowRegister . . . . . . . . . .	Proc
+Startup  . . . . . . . . . . . .	Proc
+WriteSpace . . . . . . . . . . .	Proc
+mDumpMem . . . . . . . . . . . .	Proc
+mGotoxy  . . . . . . . . . . . .	Proc
+mNewLine . . . . . . . . . . . .	Proc
+mReadStr . . . . . . . . . . . .	Proc
+mWriteLn . . . . . . . . . . . .	Proc
+mWriteStr  . . . . . . . . . . .	Proc
+mWrite . . . . . . . . . . . . .	Proc
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+CONSOLE_CURSOR_INFO  . . . . . .	 00000005
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+  bVisible . . . . . . . . . . .	 00000004	 Byte
+CONSOLE_SCREEN_BUFFER_INFO . . .	 00000016
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+  dwCursorPos  . . . . . . . . .	 00000004	 DWord
+  wAttributes  . . . . . . . . .	 00000008	 Word
+  srWindow . . . . . . . . . . .	 0000000A	 QWord
+  maxWinSize . . . . . . . . . .	 00000012	 DWord
+COORD  . . . . . . . . . . . . .	 00000004
+  X  . . . . . . . . . . . . . .	 00000000	 Word
+  Y  . . . . . . . . . . . . . .	 00000002	 Word
+FILETIME . . . . . . . . . . . .	 00000008
+  loDateTime . . . . . . . . . .	 00000000	 DWord
+  hiDateTime . . . . . . . . . .	 00000004	 DWord
+SMALL_RECT . . . . . . . . . . .	 00000008
+  Left . . . . . . . . . . . . .	 00000000	 Word
+  Top  . . . . . . . . . . . . .	 00000002	 Word
+  Right  . . . . . . . . . . . .	 00000004	 Word
+  Bottom . . . . . . . . . . . .	 00000006	 Word
+SYSTEMTIME . . . . . . . . . . .	 00000010
+  wYear  . . . . . . . . . . . .	 00000000	 Word
+  wMonth . . . . . . . . . . . .	 00000002	 Word
+  wDayOfWeek . . . . . . . . . .	 00000004	 Word
+  wDay . . . . . . . . . . . . .	 00000006	 Word
+  wHour  . . . . . . . . . . . .	 00000008	 Word
+  wMinute  . . . . . . . . . . .	 0000000A	 Word
+  wSecond  . . . . . . . . . . .	 0000000C	 Word
+  wMilliseconds  . . . . . . . .	 0000000E	 Word
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000306 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 000005D1 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+CloseHandle  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ClrScr . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+CreateFileA  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Crlf . . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Delay  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+DumpMem  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+DumpRegs . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+FlushConsoleInputBuffer  . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetCommandTail . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleCP . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleCursorInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleMode . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleScreenBufferInfo . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetDateTime  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetLocalTime . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetMseconds  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetNumberOfConsoleInputEvents  .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetStdHandle . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetSystemTime  . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetTickCount . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Gotoxy . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+IsDigit  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+PeekConsoleInputA  . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Play1  . . . . . . . . . . . . .	P Near	 0000032C _TEXT	Length= 00000141 Public STDCALL
+  cont . . . . . . . . . . . . .	L Near	 0000034E _TEXT	
+  wr1  . . . . . . . . . . . . .	L Near	 0000035A _TEXT	
+  inc1_  . . . . . . . . . . . .	L Near	 000003B0 _TEXT	
+  inc2_  . . . . . . . . . . . .	L Near	 000003B9 _TEXT	
+  cont1  . . . . . . . . . . . .	L Near	 000003C2 _TEXT	
+  wr2  . . . . . . . . . . . . .	L Near	 000003CE _TEXT	
+  inc3_  . . . . . . . . . . . .	L Near	 00000424 _TEXT	
+  inc4_  . . . . . . . . . . . .	L Near	 0000042D _TEXT	
+  cont2  . . . . . . . . . . . .	L Near	 00000436 _TEXT	
+Play2  . . . . . . . . . . . . .	P Near	 0000046D _TEXT	Length= 0000012A Public STDCALL
+  cont . . . . . . . . . . . . .	L Near	 0000048F _TEXT	
+  wr1  . . . . . . . . . . . . .	L Near	 0000049B _TEXT	
+  inc1_  . . . . . . . . . . . .	L Near	 000004F1 _TEXT	
+  inc2_  . . . . . . . . . . . .	L Near	 000004FA _TEXT	
+  cont1  . . . . . . . . . . . .	L Near	 00000503 _TEXT	
+  wr2  . . . . . . . . . . . . .	L Near	 0000050F _TEXT	
+  inc3_  . . . . . . . . . . . .	L Near	 00000565 _TEXT	
+  inc4_  . . . . . . . . . . . .	L Near	 0000056E _TEXT	
+  cont2  . . . . . . . . . . . .	L Near	 00000577 _TEXT	
+PlayComp . . . . . . . . . . . .	P Near	 00000597 _TEXT	Length= 0000003A Public STDCALL
+Random32 . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+RandomRange  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Randomize  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadChar . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadConsoleA . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadConsoleInputA  . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadFile . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadHex  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadInt  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadString . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleCursorInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleCursorPosition . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleMode . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleScreenBufferSize . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleTextAttribute  . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleTitleA . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleWindowInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetFilePointer . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetTextColor . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Sleep  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_compare  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_copy . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_length . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_trim . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_ucase  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SystemTimeToFileTime . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WaitMsg  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteBin . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteChar  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleA  . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleOutputAttribute  . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleOutputCharacterA . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteDec . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteFile  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteHex . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteInt . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000265 Public STDCALL
+  y_again  . . . . . . . . . . .	L Near	 00000011 _TEXT	
+  first  . . . . . . . . . . . .	L Near	 00000033 _TEXT	
+  one  . . . . . . . . . . . . .	L Near	 0000006A _TEXT	
+  two  . . . . . . . . . . . . .	L Near	 0000008B _TEXT	
+  other  . . . . . . . . . . . .	L Near	 000000CE _TEXT	
+  cont1  . . . . . . . . . . . .	L Near	 000000EE _TEXT	
+  L1 . . . . . . . . . . . . . .	L Near	 000000FE _TEXT	
+  again2 . . . . . . . . . . . .	L Near	 0000014C _TEXT	
+  y_again1 . . . . . . . . . . .	L Near	 00000193 _TEXT	
+  cont2  . . . . . . . . . . . .	L Near	 0000019D _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 000001AD _TEXT	
+  again  . . . . . . . . . . . .	L Near	 000001FB _TEXT	
+  ext  . . . . . . . . . . . . .	L Near	 00000259 _TEXT	
+table  . . . . . . . . . . . . .	P Near	 00000265 _TEXT	Length= 000000C7 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000026F _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000028C _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 000002A9 _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 000002C6 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 000002E3 _TEXT	
+  L6 . . . . . . . . . . . . . .	L Near	 00000300 _TEXT	
+  L7 . . . . . . . . . . . . . .	L Near	 0000031D _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+??0000 . . . . . . . . . . . . .	Byte	 0000011D _DATA	
+??0001 . . . . . . . . . . . . .	Byte	 0000013A _DATA	
+??0002 . . . . . . . . . . . . .	Byte	 0000014F _DATA	
+??0003 . . . . . . . . . . . . .	Byte	 00000162 _DATA	
+??0004 . . . . . . . . . . . . .	Byte	 00000181 _DATA	
+??0005 . . . . . . . . . . . . .	Byte	 00000196 _DATA	
+??0006 . . . . . . . . . . . . .	Byte	 000001AE _DATA	
+??0007 . . . . . . . . . . . . .	Byte	 000001C6 _DATA	
+??0008 . . . . . . . . . . . . .	Byte	 000001D3 _DATA	
+??0009 . . . . . . . . . . . . .	Byte	 000001DF _DATA	
+??000A . . . . . . . . . . . . .	Byte	 000001FF _DATA	
+??000B . . . . . . . . . . . . .	Byte	 0000020B _DATA	
+??000C . . . . . . . . . . . . .	Byte	 0000022B _DATA	
+??000D . . . . . . . . . . . . .	Byte	 0000022D _DATA	
+??000E . . . . . . . . . . . . .	Byte	 00000238 _DATA	
+??000F . . . . . . . . . . . . .	Byte	 00000252 _DATA	
+??0010 . . . . . . . . . . . . .	Byte	 00000260 _DATA	
+??0011 . . . . . . . . . . . . .	Byte	 0000027A _DATA	
+??0012 . . . . . . . . . . . . .	Byte	 00000288 _DATA	
+??0013 . . . . . . . . . . . . .	Byte	 0000028A _DATA	
+??0014 . . . . . . . . . . . . .	Byte	 0000028C _DATA	
+??0015 . . . . . . . . . . . . .	Byte	 00000297 _DATA	
+??0016 . . . . . . . . . . . . .	Byte	 000002B1 _DATA	
+??0017 . . . . . . . . . . . . .	Byte	 000002BF _DATA	
+??0018 . . . . . . . . . . . . .	Byte	 000002D9 _DATA	
+??0019 . . . . . . . . . . . . .	Byte	 000002E7 _DATA	
+??001A . . . . . . . . . . . . .	Byte	 000002E9 _DATA	
+??001B . . . . . . . . . . . . .	Byte	 00000300 _DATA	
+??001C . . . . . . . . . . . . .	Byte	 00000304 _DATA	
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+CREATE_ALWAYS  . . . . . . . . .	Number	 00000002h   
+CREATE_NEW . . . . . . . . . . .	Number	 00000001h   
+CreateFile . . . . . . . . . . .	Text   	 CreateFileA
+DO_NOT_SHARE . . . . . . . . . .	Number	 00000000h   
+ENABLE_ECHO_INPUT  . . . . . . .	Number	 00000004h   
+ENABLE_LINE_INPUT  . . . . . . .	Number	 00000002h   
+ENABLE_MOUSE_INPUT . . . . . . .	Number	 00000010h   
+ENABLE_PROCESSED_INPUT . . . . .	Number	 00000001h   
+ENABLE_PROCESSED_OUTPUT  . . . .	Number	 00000001h   
+ENABLE_WINDOW_INPUT  . . . . . .	Number	 00000008h   
+ENABLE_WRAP_AT_EOL_OUTPUT  . . .	Number	 00000002h   
+FALSE  . . . . . . . . . . . . .	Number	 00000000h   
+FILE_APPEND_DATA . . . . . . . .	Number	 00000004h   
+FILE_ATTRIBUTE_ARCHIVE . . . . .	Number	 00000020h   
+FILE_ATTRIBUTE_COMPRESSED  . . .	Number	 00000800h   
+FILE_ATTRIBUTE_DEVICE  . . . . .	Number	 00000040h   
+FILE_ATTRIBUTE_DIRECTORY . . . .	Number	 00000010h   
+FILE_ATTRIBUTE_ENCRYPTED . . . .	Number	 00004000h   
+FILE_ATTRIBUTE_HIDDEN  . . . . .	Number	 00000002h   
+FILE_ATTRIBUTE_NORMAL  . . . . .	Number	 00000080h   
+FILE_ATTRIBUTE_NOT_CONTENT_INDEXED .	Number	 00002000h   
+FILE_ATTRIBUTE_OFFLINE . . . . .	Number	 00001000h   
+FILE_ATTRIBUTE_READONLY  . . . .	Number	 00000001h   
+FILE_ATTRIBUTE_REPARSE_POINT . .	Number	 00000400h   
+FILE_ATTRIBUTE_SPARSE_FILE . . .	Number	 00000200h   
+FILE_ATTRIBUTE_SYSTEM  . . . . .	Number	 00000004h   
+FILE_ATTRIBUTE_TEMPORARY . . . .	Number	 00000100h   
+FILE_BEGIN . . . . . . . . . . .	Number	 00000000h   
+FILE_CURRENT . . . . . . . . . .	Number	 00000001h   
+FILE_DELETE_CHILD  . . . . . . .	Number	 00000040h   
+FILE_END . . . . . . . . . . . .	Number	 00000002h   
+FILE_READ_DATA . . . . . . . . .	Number	 00000001h   
+FILE_SHARE_DELETE  . . . . . . .	Number	 00000004h   
+FILE_SHARE_READ  . . . . . . . .	Number	 00000001h   
+FILE_SHARE_WRITE . . . . . . . .	Number	 00000002h   
+FILE_WRITE_DATA  . . . . . . . .	Number	 00000002h   
+FOCUS_EVENT  . . . . . . . . . .	Number	 00000010h   
+GENERIC_ALL  . . . . . . . . . .	Number	 10000000h   
+GENERIC_EXECUTE  . . . . . . . .	Number	 20000000h   
+GENERIC_READ . . . . . . . . . .	Number	 -80000000h   
+GENERIC_WRITE  . . . . . . . . .	Number	 40000000h   
+INVALID_HANDLE_VALUE . . . . . .	Number	 -00000001h   
+KEY_EVENT  . . . . . . . . . . .	Number	 00000001h   
+MENU_EVENT . . . . . . . . . . .	Number	 00000008h   
+MOUSE_EVENT  . . . . . . . . . .	Number	 00000002h   
+NULL . . . . . . . . . . . . . .	Number	 00000000h   
+OPEN_ALWAYS  . . . . . . . . . .	Number	 00000004h   
+OPEN_EXISTING  . . . . . . . . .	Number	 00000003h   
+PeekConsoleInput . . . . . . . .	Text   	 PeekConsoleInputA
+ReadConsoleInput . . . . . . . .	Text   	 ReadConsoleInputA
+ReadConsole  . . . . . . . . . .	Text   	 ReadConsoleA
+STD_INPUT_HANDLE . . . . . . . .	Number	 -0000000Ah   
+STD_OUTPUT_HANDLE  . . . . . . .	Number	 -0000000Bh   
+SetConsoleTitle  . . . . . . . .	Text   	 SetConsoleTitleA
+TRUE . . . . . . . . . . . . . .	Number	 00000001h   
+TRUNCATE_EXISTING  . . . . . . .	Number	 00000005h   
+WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
+WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
+WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
+beep . . . . . . . . . . . . . .	Byte	 00000020 _DATA	
+black  . . . . . . . . . . . . .	Number	 00000000h   
+blue . . . . . . . . . . . . . .	Number	 00000001h   
+brown  . . . . . . . . . . . . .	Number	 00000006h   
+cyan . . . . . . . . . . . . . .	Number	 00000003h   
+exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
+gray . . . . . . . . . . . . . .	Number	 00000008h   
+green  . . . . . . . . . . . . .	Number	 00000002h   
+lightBlue  . . . . . . . . . . .	Number	 00000009h   
+lightCyan  . . . . . . . . . . .	Number	 0000000Bh   
+lightGray  . . . . . . . . . . .	Number	 00000007h   
+lightGreen . . . . . . . . . . .	Number	 0000000Ah   
+lightMagenta . . . . . . . . . .	Number	 0000000Dh   
+lightRed . . . . . . . . . . . .	Number	 0000000Ch   
+magenta  . . . . . . . . . . . .	Number	 00000005h   
+player1  . . . . . . . . . . . .	DWord	 00000026 _DATA	
+player2  . . . . . . . . . . . .	DWord	 0000009E _DATA	
+randVal  . . . . . . . . . . . .	DWord	 00000118 _DATA	
+red  . . . . . . . . . . . . . .	Number	 00000004h   
+table1 . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+table2 . . . . . . . . . . . . .	Byte	 00000008 _DATA	
+table3 . . . . . . . . . . . . .	Byte	 00000010 _DATA	
+table4 . . . . . . . . . . . . .	Byte	 00000018 _DATA	
+val1 . . . . . . . . . . . . . .	DWord	 00000022 _DATA	
+valx . . . . . . . . . . . . . .	Byte	 00000116 _DATA	
+valy . . . . . . . . . . . . . .	Byte	 00000117 _DATA	
+white  . . . . . . . . . . . . .	Number	 0000000Fh   
+yellow . . . . . . . . . . . . .	Number	 0000000Eh   
+yesno  . . . . . . . . . . . . .	Byte	 0000011C _DATA	
+
+	   17 Warnings
+	   0 Errors

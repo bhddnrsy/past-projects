@@ -1,0 +1,15 @@
+Technician_ID	Car_ID	Operation	Simulation_Day
+Type B - 0	1	chassis		1
+Type B - 1	2	chassis		1
+Type B - 2	3	chassis		1
+Type D - 1	1	engine		1
+Type C - 1	1	seats		1
+Type D - 0	2	engine		1
+Type C - 3	2	seats		1
+Type C - 2	3	seats		1
+Type C - 0	4	seats		1
+Type A - 1	1	tires		1
+Type A - 0	2	tires		1
+Type A - 2	3	tires		1
+Type A - 4	4	tires		1
+Type A - 3	5	tires		1
