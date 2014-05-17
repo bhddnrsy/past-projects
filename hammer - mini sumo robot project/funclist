@@ -1,0 +1,15 @@
+i1_set_pwm: CODE, 726 0 8
+_init: CODE, 656 0 24
+_geri: CODE, 783 0 7
+_main: CODE, 432 0 224
+i1_ileri: CODE, 776 0 7
+_sagdon: CODE, 748 0 7
+_timer_func: CODE, 21 0 411
+i1_sagdon: CODE, 769 0 7
+_timer_init: CODE, 703 0 15
+i1_soldon: CODE, 762 0 7
+_ileri: CODE, 755 0 7
+_set_pwm: CODE, 718 0 8
+_pwm_init: CODE, 680 0 23
+_soldon: CODE, 741 0 7
+Total: 762

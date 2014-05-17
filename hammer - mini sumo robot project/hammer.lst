@@ -1,0 +1,2785 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Fri Apr 12 15:22:37 2013
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F876A
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 2 "C:\Users\shock-mini\Desktop\hammer\main.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 2 "C:\Users\shock-mini\Desktop\hammer\main.c"
+    45  2007  3F3A               	dw 0x3F7F & 0x3FFE & 0x3FFB & 0x3FBF ;#
+    46                           	FNCALL	_main,_init
+    47                           	FNCALL	_main,_timer_init
+    48                           	FNCALL	_main,_pwm_init
+    49                           	FNCALL	_main,_set_pwm
+    50                           	FNCALL	_main,_sagdon
+    51                           	FNCALL	_main,_ileri
+    52                           	FNCALL	_main,_soldon
+    53                           	FNROOT	_main
+    54                           	FNCALL	_timer_func,i1_set_pwm
+    55                           	FNCALL	_timer_func,_geri
+    56                           	FNCALL	_timer_func,i1_ileri
+    57                           	FNCALL	_timer_func,i1_soldon
+    58                           	FNCALL	_timer_func,i1_sagdon
+    59                           	FNCALL	intlevel1,_timer_func
+    60                           	global	intlevel1
+    61                           	FNROOT	intlevel1
+    62                           	global	_startdir
+    63                           	global	_currentstate
+    64                           	global	_laststate
+    65                           	global	_mymode
+    66                           psect	nvCOMMON,class=COMMON,space=1
+    67                           global __pnvCOMMON
+    68  0079                     __pnvCOMMON:
+    69  0079                     _mymode:
+    70  0079                            ds      1
+    71                           
+    72                           	global	_CCP1CON
+    73  0017                     _CCP1CON	set	23
+    74                           	global	_CCP2CON
+    75  001D                     _CCP2CON	set	29
+    76                           	global	_CCPR1L
+    77  0015                     _CCPR1L	set	21
+    78                           	global	_CCPR2L
+    79  001B                     _CCPR2L	set	27
+    80                           	global	_PORTA
+    81  0005                     _PORTA	set	5
+    82                           	global	_PORTB
+    83  0006                     _PORTB	set	6
+    84                           	global	_PORTC
+    85  0007                     _PORTC	set	7
+    86                           	global	_T1CON
+    87  0010                     _T1CON	set	16
+    88                           	global	_T2CON
+    89  0012                     _T2CON	set	18
+    90                           	global	_TMR0
+    91  0001                     _TMR0	set	1
+    92                           	global	_GIE
+    93  005F                     _GIE	set	95
+    94                           	global	_RA0
+    95  0028                     _RA0	set	40
+    96                           	global	_RB0
+    97  0030                     _RB0	set	48
+    98                           	global	_RB1
+    99  0031                     _RB1	set	49
+   100                           	global	_RB2
+   101  0032                     _RB2	set	50
+   102                           	global	_RB3
+   103  0033                     _RB3	set	51
+   104                           	global	_RB4
+   105  0034                     _RB4	set	52
+   106                           	global	_RB5
+   107  0035                     _RB5	set	53
+   108                           	global	_RC0
+   109  0038                     _RC0	set	56
+   110                           	global	_RC3
+   111  003B                     _RC3	set	59
+   112                           	global	_RC4
+   113  003C                     _RC4	set	60
+   114                           	global	_RC5
+   115  003D                     _RC5	set	61
+   116                           	global	_RC6
+   117  003E                     _RC6	set	62
+   118                           	global	_RC7
+   119  003F                     _RC7	set	63
+   120                           	global	_T0IE
+   121  005D                     _T0IE	set	93
+   122                           	global	_T0IF
+   123  005A                     _T0IF	set	90
+   124                           	global	_TMR0IF
+   125  005A                     _TMR0IF	set	90
+   126                           	global	_ADCON1
+   127  009F                     _ADCON1	set	159
+   128                           	global	_OPTION
+   129  0081                     _OPTION	set	129
+   130                           	global	_PR2
+   131  0092                     _PR2	set	146
+   132                           	global	_TRISA
+   133  0085                     _TRISA	set	133
+   134                           	global	_TRISB
+   135  0086                     _TRISB	set	134
+   136                           	global	_TRISC
+   137  0087                     _TRISC	set	135
+   138                           	global	_PS0
+   139  0408                     _PS0	set	1032
+   140                           	global	_PS1
+   141  0409                     _PS1	set	1033
+   142                           	global	_PS2
+   143  040A                     _PS2	set	1034
+   144                           	global	_PSA
+   145  040B                     _PSA	set	1035
+   146                           	global	_T0CS
+   147  040D                     _T0CS	set	1037
+   148                           	file	"hammer.as"
+   149                           	line	#
+   150                           psect cinit,class=CODE,delta=2
+   151                           global start_initialization
+   152  02DE                     start_initialization:
+   153                           
+   154                           psect	bssCOMMON,class=COMMON,space=1
+   155                           global __pbssCOMMON
+   156  0077                     __pbssCOMMON:
+   157  0077                     _currentstate:
+   158  0077                            ds      1
+   159                           
+   160  0078                     _laststate:
+   161  0078                            ds      1
+   162                           
+   163                           psect	bssBANK0,class=BANK0,space=1
+   164                           global __pbssBANK0
+   165  0026                     __pbssBANK0:
+   166  0026                     _startdir:
+   167  0026                            ds      1
+   168                           
+   169                           ; Clear objects allocated to COMMON
+   170                           psect cinit,class=CODE,delta=2
+   171  02DE  01F7               	clrf	((__pbssCOMMON)+0)&07Fh
+   172  02DF  01F8               	clrf	((__pbssCOMMON)+1)&07Fh
+   173                           ; Clear objects allocated to BANK0
+   174                           psect cinit,class=CODE,delta=2
+   175  02E0  01A6               	clrf	((__pbssBANK0)+0)&07Fh
+   176                           psect cinit,class=CODE,delta=2
+   177                           global end_of_initialization
+   178                           
+   179                           ;End of C runtime variable initialization code
+   180                           
+   181  02E1                     end_of_initialization:
+   182  02E1  0183               clrf status
+   183  02E2  120A  118A  29B0   ljmp _main	;jump to C main() function
+   184                           psect	cstackCOMMON,class=COMMON,space=1
+   185                           global __pcstackCOMMON
+   186  0070                     __pcstackCOMMON:
+   187                           	global	?_init
+   188  0070                     ?_init:	; 0 bytes @ 0x0
+   189                           	global	?_timer_init
+   190  0070                     ?_timer_init:	; 0 bytes @ 0x0
+   191                           	global	?_pwm_init
+   192  0070                     ?_pwm_init:	; 0 bytes @ 0x0
+   193                           	global	?_ileri
+   194  0070                     ?_ileri:	; 0 bytes @ 0x0
+   195                           	global	?_geri
+   196  0070                     ?_geri:	; 0 bytes @ 0x0
+   197                           	global	??_geri
+   198  0070                     ??_geri:	; 0 bytes @ 0x0
+   199                           	global	?_sagdon
+   200  0070                     ?_sagdon:	; 0 bytes @ 0x0
+   201                           	global	?_soldon
+   202  0070                     ?_soldon:	; 0 bytes @ 0x0
+   203                           	global	?_main
+   204  0070                     ?_main:	; 0 bytes @ 0x0
+   205                           	global	?_timer_func
+   206  0070                     ?_timer_func:	; 0 bytes @ 0x0
+   207                           	global	?i1_set_pwm
+   208  0070                     ?i1_set_pwm:	; 0 bytes @ 0x0
+   209                           	global	?i1_ileri
+   210  0070                     ?i1_ileri:	; 0 bytes @ 0x0
+   211                           	global	??i1_ileri
+   212  0070                     ??i1_ileri:	; 0 bytes @ 0x0
+   213                           	global	?i1_sagdon
+   214  0070                     ?i1_sagdon:	; 0 bytes @ 0x0
+   215                           	global	??i1_sagdon
+   216  0070                     ??i1_sagdon:	; 0 bytes @ 0x0
+   217                           	global	?i1_soldon
+   218  0070                     ?i1_soldon:	; 0 bytes @ 0x0
+   219                           	global	??i1_soldon
+   220  0070                     ??i1_soldon:	; 0 bytes @ 0x0
+   221                           	global	i1set_pwm@motor2_pwm
+   222  0070                     i1set_pwm@motor2_pwm:	; 1 bytes @ 0x0
+   223  0070                     	ds	1
+   224                           	global	??i1_set_pwm
+   225  0071                     ??i1_set_pwm:	; 0 bytes @ 0x1
+   226                           	global	i1set_pwm@motor1_pwm
+   227  0071                     i1set_pwm@motor1_pwm:	; 1 bytes @ 0x1
+   228  0071                     	ds	1
+   229                           	global	??_timer_func
+   230  0072                     ??_timer_func:	; 0 bytes @ 0x2
+   231  0072                     	ds	5
+   232                           psect	cstackBANK0,class=BANK0,space=1
+   233                           global __pcstackBANK0
+   234  0020                     __pcstackBANK0:
+   235                           	global	??_init
+   236  0020                     ??_init:	; 0 bytes @ 0x0
+   237                           	global	??_timer_init
+   238  0020                     ??_timer_init:	; 0 bytes @ 0x0
+   239                           	global	?_set_pwm
+   240  0020                     ?_set_pwm:	; 0 bytes @ 0x0
+   241                           	global	??_pwm_init
+   242  0020                     ??_pwm_init:	; 0 bytes @ 0x0
+   243                           	global	??_ileri
+   244  0020                     ??_ileri:	; 0 bytes @ 0x0
+   245                           	global	??_sagdon
+   246  0020                     ??_sagdon:	; 0 bytes @ 0x0
+   247                           	global	??_soldon
+   248  0020                     ??_soldon:	; 0 bytes @ 0x0
+   249                           	global	set_pwm@motor2_pwm
+   250  0020                     set_pwm@motor2_pwm:	; 1 bytes @ 0x0
+   251  0020                     	ds	1
+   252                           	global	??_set_pwm
+   253  0021                     ??_set_pwm:	; 0 bytes @ 0x1
+   254                           	global	set_pwm@motor1_pwm
+   255  0021                     set_pwm@motor1_pwm:	; 1 bytes @ 0x1
+   256  0021                     	ds	1
+   257                           	global	??_main
+   258  0022                     ??_main:	; 0 bytes @ 0x2
+   259  0022                     	ds	3
+   260                           	global	main@i
+   261  0025                     main@i:	; 1 bytes @ 0x5
+   262  0025                     	ds	1
+   263 ;;Data sizes: Strings 0, constant 0, data 0, bss 3, persistent 1 stack 0
+   264 ;;Auto spaces:   Size  Autos    Used
+   265 ;; COMMON          14      7      10
+   266 ;; BANK0           80      6       7
+   267 ;; BANK1           80      0       0
+   268 ;; BANK3           96      0       0
+   269 ;; BANK2           96      0       0
+   270                           
+   271 ;;
+   272 ;; Pointer list with targets:
+   273                           
+   274                           
+   275                           
+   276 ;;
+   277 ;; Critical Paths under _main in COMMON
+   278 ;;
+   279 ;;   None.
+   280 ;;
+   281 ;; Critical Paths under _timer_func in COMMON
+   282 ;;
+   283 ;;   _timer_func->i1_set_pwm
+   284 ;;
+   285 ;; Critical Paths under _main in BANK0
+   286 ;;
+   287 ;;   _main->_set_pwm
+   288 ;;
+   289 ;; Critical Paths under _timer_func in BANK0
+   290 ;;
+   291 ;;   None.
+   292 ;;
+   293 ;; Critical Paths under _main in BANK1
+   294 ;;
+   295 ;;   None.
+   296 ;;
+   297 ;; Critical Paths under _timer_func in BANK1
+   298 ;;
+   299 ;;   None.
+   300 ;;
+   301 ;; Critical Paths under _main in BANK3
+   302 ;;
+   303 ;;   None.
+   304 ;;
+   305 ;; Critical Paths under _timer_func in BANK3
+   306 ;;
+   307 ;;   None.
+   308 ;;
+   309 ;; Critical Paths under _main in BANK2
+   310 ;;
+   311 ;;   None.
+   312 ;;
+   313 ;; Critical Paths under _timer_func in BANK2
+   314 ;;
+   315 ;;   None.
+   316                           
+   317 ;;
+   318 ;;Main: autosize = 0, tempsize = 3, incstack = 0, save=0
+   319 ;;
+   320                           
+   321 ;;
+   322 ;;Call Graph Tables:
+   323 ;;
+   324 ;; ---------------------------------------------------------------------------------
+   325 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   326 ;; ---------------------------------------------------------------------------------
+   327 ;; (0) _main                                                 4     4      0     285
+   328 ;;                                              2 BANK0      4     4      0
+   329 ;;                               _init
+   330 ;;                         _timer_init
+   331 ;;                           _pwm_init
+   332 ;;                            _set_pwm
+   333 ;;                             _sagdon
+   334 ;;                              _ileri
+   335 ;;                             _soldon
+   336 ;; ---------------------------------------------------------------------------------
+   337 ;; (1) _soldon                                               0     0      0       0
+   338 ;; ---------------------------------------------------------------------------------
+   339 ;; (1) _sagdon                                               0     0      0       0
+   340 ;; ---------------------------------------------------------------------------------
+   341 ;; (1) _ileri                                                0     0      0       0
+   342 ;; ---------------------------------------------------------------------------------
+   343 ;; (1) _pwm_init                                             0     0      0       0
+   344 ;; ---------------------------------------------------------------------------------
+   345 ;; (1) _set_pwm                                              2     1      1      62
+   346 ;;                                              0 BANK0      2     1      1
+   347 ;; ---------------------------------------------------------------------------------
+   348 ;; (1) _timer_init                                           0     0      0       0
+   349 ;; ---------------------------------------------------------------------------------
+   350 ;; (1) _init                                                 0     0      0       0
+   351 ;; ---------------------------------------------------------------------------------
+   352 ;; Estimated maximum stack depth 1
+   353 ;; ---------------------------------------------------------------------------------
+   354 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   355 ;; ---------------------------------------------------------------------------------
+   356 ;; (2) _timer_func                                           5     5      0     146
+   357 ;;                                              2 COMMON     5     5      0
+   358 ;;                          i1_set_pwm
+   359 ;;                               _geri
+   360 ;;                            i1_ileri
+   361 ;;                           i1_soldon
+   362 ;;                           i1_sagdon
+   363 ;; ---------------------------------------------------------------------------------
+   364 ;; (3) i1_soldon                                             0     0      0       0
+   365 ;; ---------------------------------------------------------------------------------
+   366 ;; (3) i1_sagdon                                             0     0      0       0
+   367 ;; ---------------------------------------------------------------------------------
+   368 ;; (3) i1_ileri                                              0     0      0       0
+   369 ;; ---------------------------------------------------------------------------------
+   370 ;; (3) i1_set_pwm                                            2     1      1     146
+   371 ;;                                              0 COMMON     2     1      1
+   372 ;; ---------------------------------------------------------------------------------
+   373 ;; (3) _geri                                                 0     0      0       0
+   374 ;; ---------------------------------------------------------------------------------
+   375 ;; Estimated maximum stack depth 3
+   376 ;; ---------------------------------------------------------------------------------
+   377                           
+   378 ;; Call Graph Graphs:
+   379                           
+   380 ;; _main (ROOT)
+   381 ;;   _init
+   382 ;;   _timer_init
+   383 ;;   _pwm_init
+   384 ;;   _set_pwm
+   385 ;;   _sagdon
+   386 ;;   _ileri
+   387 ;;   _soldon
+   388 ;;
+   389 ;; _timer_func (ROOT)
+   390 ;;   i1_set_pwm
+   391 ;;   _geri
+   392 ;;   i1_ileri
+   393 ;;   i1_soldon
+   394 ;;   i1_sagdon
+   395 ;;
+   396                           
+   397 ;; Address spaces:
+   398                           
+   399 ;;Name               Size   Autos  Total    Cost      Usage
+   400 ;;BITCOMMON            E      0       0       0        0.0%
+   401 ;;EEDATA             100      0       0       0        0.0%
+   402 ;;NULL                 0      0       0       0        0.0%
+   403 ;;CODE                 0      0       0       0        0.0%
+   404 ;;COMMON               E      7       A       1       71.4%
+   405 ;;BITSFR0              0      0       0       1        0.0%
+   406 ;;SFR0                 0      0       0       1        0.0%
+   407 ;;BITSFR1              0      0       0       2        0.0%
+   408 ;;SFR1                 0      0       0       2        0.0%
+   409 ;;STACK                0      0       5       2        0.0%
+   410 ;;ABS                  0      0      11       3        0.0%
+   411 ;;BITBANK0            50      0       0       4        0.0%
+   412 ;;BITSFR3              0      0       0       4        0.0%
+   413 ;;SFR3                 0      0       0       4        0.0%
+   414 ;;BANK0               50      6       7       5        8.8%
+   415 ;;BITSFR2              0      0       0       5        0.0%
+   416 ;;SFR2                 0      0       0       5        0.0%
+   417 ;;BITBANK1            50      0       0       6        0.0%
+   418 ;;BANK1               50      0       0       7        0.0%
+   419 ;;BITBANK3            60      0       0       8        0.0%
+   420 ;;BANK3               60      0       0       9        0.0%
+   421 ;;BITBANK2            60      0       0      10        0.0%
+   422 ;;BANK2               60      0       0      11        0.0%
+   423 ;;DATA                 0      0      16      12        0.0%
+   424                           
+   425                           	global	_main
+   426                           psect	maintext,global,class=CODE,delta=2
+   427                           global __pmaintext
+   428  01B0                     __pmaintext:
+   429                           
+   430 ;; *************** function _main *****************
+   431 ;; Defined at:
+   432 ;;		line 180 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+   433 ;; Parameters:    Size  Location     Type
+   434 ;;		None
+   435 ;; Auto vars:     Size  Location     Type
+   436 ;;  i               1    5[BANK0 ] unsigned char 
+   437 ;; Return value:  Size  Location     Type
+   438 ;;		None               void
+   439 ;; Registers used:
+   440 ;;		wreg, status,2, status,0, pclath, cstack
+   441 ;; Tracked objects:
+   442 ;;		On entry : 17F/0
+   443 ;;		On exit  : 0/0
+   444 ;;		Unchanged: 0/0
+   445 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   446 ;;      Params:         0       0       0       0       0
+   447 ;;      Locals:         0       1       0       0       0
+   448 ;;      Temps:          0       3       0       0       0
+   449 ;;      Totals:         0       4       0       0       0
+   450 ;;Total ram usage:        4 bytes
+   451 ;; Hardware stack levels required when called:    3
+   452 ;; This function calls:
+   453 ;;		_init
+   454 ;;		_timer_init
+   455 ;;		_pwm_init
+   456 ;;		_set_pwm
+   457 ;;		_sagdon
+   458 ;;		_ileri
+   459 ;;		_soldon
+   460 ;; This function is called by:
+   461 ;;		Startup code after reset
+   462 ;; This function uses a non-reentrant model
+   463 ;;
+   464                           psect	maintext
+   465                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+   466                           	line	180
+   467                           	global	__size_of_main
+   468  00E0                     	__size_of_main	equ	__end_of_main-_main
+   469                           	
+   470  01B0                     _main:	
+   471                           	opt	stack 5
+   472                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   473                           	line	183
+   474                           	
+   475  01B0                     l2358:	
+   476                           ;main.c: 182: char i;
+   477                           ;main.c: 183: init();
+   478  01B0  120A  118A  2290   	fcall	_init
+              120A  118A         
+   479                           	line	184
+   480                           ;main.c: 184: timer_init();
+   481  01B5  120A  118A  22BF   	fcall	_timer_init
+              120A  118A         
+   482                           	line	185
+   483                           ;main.c: 185: pwm_init();
+   484  01BA  120A  118A  22A8   	fcall	_pwm_init
+              120A  118A         
+   485                           	line	186
+   486                           	
+   487  01BF                     l2360:	
+   488                           ;main.c: 186: RC3 = 0;
+   489  01BF  1283               	bcf	status, 5	;RP0=0, select bank0
+   490  01C0  1303               	bcf	status, 6	;RP1=0, select bank0
+   491  01C1  1187               	bcf	(59/8),(59)&7
+   492                           	line	187
+   493                           	
+   494  01C2                     l2362:	
+   495                           ;main.c: 187: RC0 = 0;
+   496  01C2  1007               	bcf	(56/8),(56)&7
+   497                           	line	188
+   498                           	
+   499  01C3                     l2364:	
+   500                           ;main.c: 188: mymode = 6;
+   501  01C3  3006               	movlw	(06h)
+   502  01C4  00A2               	movwf	(??_main+0)+0
+   503  01C5  0822               	movf	(??_main+0)+0,w
+   504  01C6  00F9               	movwf	(_mymode)
+   505                           	line	189
+   506                           ;main.c: 189: while(RB5 != 0 && RA0 != 0);
+   507  01C7  29C8               	goto	l546
+   508                           	
+   509  01C8                     l547:	
+   510                           	
+   511  01C8                     l546:	
+   512  01C8  1E86               	btfss	(53/8),(53)&7
+   513  01C9  29CB               	goto	u3181
+   514  01CA  29CC               	goto	u3180
+   515  01CB                     u3181:
+   516  01CB  29D2               	goto	l2368
+   517  01CC                     u3180:
+   518                           	
+   519  01CC                     l2366:	
+   520  01CC  1805               	btfsc	(40/8),(40)&7
+   521  01CD  29CF               	goto	u3191
+   522  01CE  29D0               	goto	u3190
+   523  01CF                     u3191:
+   524  01CF  29C8               	goto	l546
+   525  01D0                     u3190:
+   526  01D0  29D2               	goto	l2368
+   527                           	
+   528  01D1                     l549:	
+   529  01D1  29D2               	goto	l2368
+   530                           	
+   531  01D2                     l550:	
+   532                           	line	190
+   533                           	
+   534  01D2                     l2368:	
+   535                           ;main.c: 190: mymode = 5;
+   536  01D2  3005               	movlw	(05h)
+   537  01D3  00A2               	movwf	(??_main+0)+0
+   538  01D4  0822               	movf	(??_main+0)+0,w
+   539  01D5  00F9               	movwf	(_mymode)
+   540                           	line	191
+   541                           	
+   542  01D6                     l2370:	
+   543                           ;main.c: 191: RC3 = 1;
+   544  01D6  1587               	bsf	(59/8),(59)&7
+   545                           	line	192
+   546                           	
+   547  01D7                     l2372:	
+   548                           ;main.c: 192: RC0 = 0;
+   549  01D7  1007               	bcf	(56/8),(56)&7
+   550                           	line	193
+   551                           	
+   552  01D8                     l2374:	
+   553                           ;main.c: 193: if (RB5 == 0)
+   554  01D8  1A86               	btfsc	(53/8),(53)&7
+   555  01D9  29DB               	goto	u3201
+   556  01DA  29DC               	goto	u3200
+   557  01DB                     u3201:
+   558  01DB  29E0               	goto	l551
+   559  01DC                     u3200:
+   560                           	line	194
+   561                           	
+   562  01DC                     l2376:	
+   563                           ;main.c: 194: startdir = 1;
+   564  01DC  01A6               	clrf	(_startdir)
+   565  01DD  1403               	bsf	status,0
+   566  01DE  0DA6               	rlf	(_startdir),f
+   567  01DF  29EA               	goto	l552
+   568                           	line	195
+   569                           	
+   570  01E0                     l551:	
+   571                           ;main.c: 195: else if (RA0 == 0)
+   572  01E0  1805               	btfsc	(40/8),(40)&7
+   573  01E1  29E3               	goto	u3211
+   574  01E2  29E4               	goto	u3210
+   575  01E3                     u3211:
+   576  01E3  29EA               	goto	l552
+   577  01E4                     u3210:
+   578                           	line	196
+   579                           	
+   580  01E4                     l2378:	
+   581                           ;main.c: 196: startdir = 0;
+   582  01E4  1003               	clrc
+   583  01E5  3000               	movlw	0
+   584  01E6  1803               	btfsc	status,0
+   585  01E7  3001               	movlw	1
+   586  01E8  00A6               	movwf	(_startdir)
+   587  01E9  29EA               	goto	l552
+   588                           	
+   589  01EA                     l553:	
+   590                           	line	197
+   591                           	
+   592  01EA                     l552:	
+   593                           ;main.c: 197: for (i = 0; i < 50; i++) {
+   594  01EA  1003               	clrc
+   595  01EB  3000               	movlw	0
+   596  01EC  1803               	btfsc	status,0
+   597  01ED  3001               	movlw	1
+   598  01EE  00A5               	movwf	(main@i)
+   599                           	
+   600  01EF                     l2380:	
+   601  01EF  3032               	movlw	(032h)
+   602  01F0  0225               	subwf	(main@i),w
+   603  01F1  1C03               	skipc
+   604  01F2  29F4               	goto	u3221
+   605  01F3  29F5               	goto	u3220
+   606  01F4                     u3221:
+   607  01F4  29F7               	goto	l2384
+   608  01F5                     u3220:
+   609  01F5  2A34               	goto	l555
+   610                           	
+   611  01F6                     l2382:	
+   612  01F6  2A34               	goto	l555
+   613                           	
+   614  01F7                     l554:	
+   615                           	line	198
+   616                           	
+   617  01F7                     l2384:	
+   618                           ;main.c: 198: _delay((unsigned long)((87)*(20000000/4000.0)));
+   619                           	opt asmopt_off
+   620  01F7  3003               movlw  3
+   621  01F8  00A4               movwf	((??_main+0)+0+2),f
+   622  01F9  3033               movlw	51
+   623  01FA  00A3               movwf	((??_main+0)+0+1),f
+   624  01FB  30EC               	movlw	236
+   625  01FC  00A2               movwf	((??_main+0)+0),f
+   626  01FD                     u3317:
+   627  01FD  0BA2               	decfsz	((??_main+0)+0),f
+   628  01FE  29FD               	goto	u3317
+   629  01FF  0BA3               	decfsz	((??_main+0)+0+1),f
+   630  0200  29FD               	goto	u3317
+   631  0201  0BA4               	decfsz	((??_main+0)+0+2),f
+   632  0202  29FD               	goto	u3317
+   633                           opt asmopt_on
+   634                           
+   635                           	line	199
+   636                           ;main.c: 199: if (i == 9 || i == 29 || i ==49 ){
+   637  0203  1283               	bcf	status, 5	;RP0=0, select bank0
+   638  0204  1303               	bcf	status, 6	;RP1=0, select bank0
+   639  0205  0825               	movf	(main@i),w
+   640  0206  3A09               	xorlw	09h
+   641  0207  1903               	skipnz
+   642  0208  2A0A               	goto	u3231
+   643  0209  2A0B               	goto	u3230
+   644  020A                     u3231:
+   645  020A  2A17               	goto	l558
+   646  020B                     u3230:
+   647                           	
+   648  020B                     l2386:	
+   649  020B  0825               	movf	(main@i),w
+   650  020C  3A1D               	xorlw	01Dh
+   651  020D  1903               	skipnz
+   652  020E  2A10               	goto	u3241
+   653  020F  2A11               	goto	u3240
+   654  0210                     u3241:
+   655  0210  2A17               	goto	l558
+   656  0211                     u3240:
+   657                           	
+   658  0211                     l2388:	
+   659  0211  0825               	movf	(main@i),w
+   660  0212  3A31               	xorlw	031h
+   661  0213  1D03               	skipz
+   662  0214  2A16               	goto	u3251
+   663  0215  2A17               	goto	u3250
+   664  0216                     u3251:
+   665  0216  2A1A               	goto	l2390
+   666  0217                     u3250:
+   667                           	
+   668  0217                     l558:	
+   669                           	line	200
+   670                           ;main.c: 200: RC0 = 1;
+   671  0217  1407               	bsf	(56/8),(56)&7
+   672                           	line	201
+   673                           ;main.c: 201: RC3 = 0;
+   674  0218  1187               	bcf	(59/8),(59)&7
+   675                           	line	202
+   676                           ;main.c: 202: }
+   677  0219  2A2A               	goto	l2394
+   678                           	line	203
+   679                           	
+   680  021A                     l556:	
+   681                           	
+   682  021A                     l2390:	
+   683                           ;main.c: 203: else if (i == 19 || i == 39){
+   684  021A  0825               	movf	(main@i),w
+   685  021B  3A13               	xorlw	013h
+   686  021C  1903               	skipnz
+   687  021D  2A1F               	goto	u3261
+   688  021E  2A20               	goto	u3260
+   689  021F                     u3261:
+   690  021F  2A26               	goto	l562
+   691  0220                     u3260:
+   692                           	
+   693  0220                     l2392:	
+   694  0220  0825               	movf	(main@i),w
+   695  0221  3A27               	xorlw	027h
+   696  0222  1D03               	skipz
+   697  0223  2A25               	goto	u3271
+   698  0224  2A26               	goto	u3270
+   699  0225                     u3271:
+   700  0225  2A2A               	goto	l2394
+   701  0226                     u3270:
+   702                           	
+   703  0226                     l562:	
+   704                           	line	204
+   705                           ;main.c: 204: RC0 = 0;
+   706  0226  1007               	bcf	(56/8),(56)&7
+   707                           	line	205
+   708                           ;main.c: 205: RC3 = 1;
+   709  0227  1587               	bsf	(59/8),(59)&7
+   710  0228  2A2A               	goto	l2394
+   711                           	line	206
+   712                           	
+   713  0229                     l560:	
+   714  0229  2A2A               	goto	l2394
+   715                           	line	207
+   716                           	
+   717  022A                     l559:	
+   718                           	line	197
+   719                           	
+   720  022A                     l2394:	
+   721  022A  3001               	movlw	(01h)
+   722  022B  00A2               	movwf	(??_main+0)+0
+   723  022C  0822               	movf	(??_main+0)+0,w
+   724  022D  07A5               	addwf	(main@i),f
+   725                           	
+   726  022E                     l2396:	
+   727  022E  3032               	movlw	(032h)
+   728  022F  0225               	subwf	(main@i),w
+   729  0230  1C03               	skipc
+   730  0231  2A33               	goto	u3281
+   731  0232  2A34               	goto	u3280
+   732  0233                     u3281:
+   733  0233  29F7               	goto	l2384
+   734  0234                     u3280:
+   735                           	
+   736  0234                     l555:	
+   737                           	line	210
+   738                           ;main.c: 206: }
+   739                           ;main.c: 207: }
+   740                           ;main.c: 210: RC0 = 1;
+   741  0234  1407               	bsf	(56/8),(56)&7
+   742                           	line	211
+   743                           ;main.c: 211: RC3 = 1;
+   744  0235  1587               	bsf	(59/8),(59)&7
+   745                           	line	213
+   746                           	
+   747  0236                     l2398:	
+   748                           ;main.c: 213: set_pwm(255,255);
+   749  0236  30FF               	movlw	(0FFh)
+   750  0237  00A2               	movwf	(??_main+0)+0
+   751  0238  0822               	movf	(??_main+0)+0,w
+   752  0239  00A0               	movwf	(?_set_pwm)
+   753  023A  30FF               	movlw	(0FFh)
+   754  023B  120A  118A  22CE   	fcall	_set_pwm
+              120A  118A         
+   755                           	line	214
+   756                           	
+   757  0240                     l2400:	
+   758                           ;main.c: 214: if(startdir == 0){
+   759  0240  1283               	bcf	status, 5	;RP0=0, select bank0
+   760  0241  1303               	bcf	status, 6	;RP1=0, select bank0
+   761  0242  08A6               	movf	(_startdir),f
+   762  0243  1D03               	skipz
+   763  0244  2A46               	goto	u3291
+   764  0245  2A47               	goto	u3290
+   765  0246                     u3291:
+   766  0246  2A61               	goto	l2408
+   767  0247                     u3290:
+   768                           	line	215
+   769                           	
+   770  0247                     l2402:	
+   771                           ;main.c: 215: sagdon();
+   772  0247  120A  118A  22EC   	fcall	_sagdon
+              120A  118A         
+   773                           	line	216
+   774                           	
+   775  024C                     l2404:	
+   776                           ;main.c: 216: _delay((unsigned long)((115)*(20000000/4000.0)));
+   777                           	opt asmopt_off
+   778  024C  3003               movlw  3
+   779  024D  1283               	bcf	status, 5	;RP0=0, select bank0
+   780  024E  1303               	bcf	status, 6	;RP1=0, select bank0
+   781  024F  00A4               movwf	((??_main+0)+0+2),f
+   782  0250  30E9               movlw	233
+   783  0251  00A3               movwf	((??_main+0)+0+1),f
+   784  0252  30BD               	movlw	189
+   785  0253  00A2               movwf	((??_main+0)+0),f
+   786  0254                     u3327:
+   787  0254  0BA2               	decfsz	((??_main+0)+0),f
+   788  0255  2A54               	goto	u3327
+   789  0256  0BA3               	decfsz	((??_main+0)+0+1),f
+   790  0257  2A54               	goto	u3327
+   791  0258  0BA4               	decfsz	((??_main+0)+0+2),f
+   792  0259  2A54               	goto	u3327
+   793  025A  0064               	clrwdt
+   794                           opt asmopt_on
+   795                           
+   796                           	line	217
+   797                           	
+   798  025B                     l2406:	
+   799                           ;main.c: 217: ileri();
+   800  025B  120A  118A  22F3   	fcall	_ileri
+              120A  118A         
+   801                           	line	218
+   802                           ;main.c: 218: }
+   803  0260  2A84               	goto	l2416
+   804                           	line	219
+   805                           	
+   806  0261                     l563:	
+   807                           	
+   808  0261                     l2408:	
+   809                           ;main.c: 219: else if(startdir == 1){
+   810  0261  1283               	bcf	status, 5	;RP0=0, select bank0
+   811  0262  1303               	bcf	status, 6	;RP1=0, select bank0
+   812  0263  0826               	movf	(_startdir),w
+   813  0264  3A01               	xorlw	01h
+   814  0265  1D03               	skipz
+   815  0266  2A68               	goto	u3301
+   816  0267  2A69               	goto	u3300
+   817  0268                     u3301:
+   818  0268  2A84               	goto	l2416
+   819  0269                     u3300:
+   820                           	line	220
+   821                           	
+   822  0269                     l2410:	
+   823                           ;main.c: 220: soldon();
+   824  0269  120A  118A  22E5   	fcall	_soldon
+              120A  118A         
+   825                           	line	221
+   826                           	
+   827  026E                     l2412:	
+   828                           ;main.c: 221: _delay((unsigned long)((115)*(20000000/4000.0)));
+   829                           	opt asmopt_off
+   830  026E  3003               movlw  3
+   831  026F  1283               	bcf	status, 5	;RP0=0, select bank0
+   832  0270  1303               	bcf	status, 6	;RP1=0, select bank0
+   833  0271  00A4               movwf	((??_main+0)+0+2),f
+   834  0272  30E9               movlw	233
+   835  0273  00A3               movwf	((??_main+0)+0+1),f
+   836  0274  30BD               	movlw	189
+   837  0275  00A2               movwf	((??_main+0)+0),f
+   838  0276                     u3337:
+   839  0276  0BA2               	decfsz	((??_main+0)+0),f
+   840  0277  2A76               	goto	u3337
+   841  0278  0BA3               	decfsz	((??_main+0)+0+1),f
+   842  0279  2A76               	goto	u3337
+   843  027A  0BA4               	decfsz	((??_main+0)+0+2),f
+   844  027B  2A76               	goto	u3337
+   845  027C  0064               	clrwdt
+   846                           opt asmopt_on
+   847                           
+   848                           	line	222
+   849                           	
+   850  027D                     l2414:	
+   851                           ;main.c: 222: ileri();
+   852  027D  120A  118A  22F3   	fcall	_ileri
+              120A  118A         
+   853  0282  2A84               	goto	l2416
+   854                           	line	223
+   855                           	
+   856  0283                     l565:	
+   857  0283  2A84               	goto	l2416
+   858                           	line	226
+   859                           	
+   860  0284                     l564:	
+   861                           	
+   862  0284                     l2416:	
+   863                           ;main.c: 223: }
+   864                           ;main.c: 226: mymode = 1;
+   865  0284  01F9               	clrf	(_mymode)
+   866  0285  1403               	bsf	status,0
+   867  0286  0DF9               	rlf	(_mymode),f
+   868                           	line	227
+   869                           	
+   870  0287                     l2418:	
+   871                           ;main.c: 227: RC3 = 0;
+   872  0287  1283               	bcf	status, 5	;RP0=0, select bank0
+   873  0288  1303               	bcf	status, 6	;RP1=0, select bank0
+   874  0289  1187               	bcf	(59/8),(59)&7
+   875                           	line	228
+   876                           	
+   877  028A                     l2420:	
+   878                           ;main.c: 228: RC0 = 0;
+   879  028A  1007               	bcf	(56/8),(56)&7
+   880  028B  2A8C               	goto	l567
+   881                           	line	231
+   882                           ;main.c: 231: while(1){
+   883                           	
+   884  028C                     l566:	
+   885                           	line	233
+   886                           	
+   887  028C                     l567:	
+   888                           	line	231
+   889  028C  2A8C               	goto	l567
+   890                           	
+   891  028D                     l568:	
+   892                           	line	235
+   893                           	
+   894  028D                     l569:	
+   895                           	global	start
+   896  028D  120A  118A  2812   	ljmp	start
+   897                           	opt stack 0
+   898                           GLOBAL	__end_of_main
+   899  0290                     	__end_of_main:
+   900 ;; =============== function _main ends ============
+   901                           
+   902                           	signat	_main,88
+   903                           	global	_soldon
+   904                           psect	text524,local,class=CODE,delta=2
+   905                           global __ptext524
+   906  02E5                     __ptext524:
+   907                           
+   908 ;; *************** function _soldon *****************
+   909 ;; Defined at:
+   910 ;;		line 140 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+   911 ;; Parameters:    Size  Location     Type
+   912 ;;		None
+   913 ;; Auto vars:     Size  Location     Type
+   914 ;;		None
+   915 ;; Return value:  Size  Location     Type
+   916 ;;		None               void
+   917 ;; Registers used:
+   918 ;;		None
+   919 ;; Tracked objects:
+   920 ;;		On entry : 0/0
+   921 ;;		On exit  : 0/0
+   922 ;;		Unchanged: 0/0
+   923 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   924 ;;      Params:         0       0       0       0       0
+   925 ;;      Locals:         0       0       0       0       0
+   926 ;;      Temps:          0       0       0       0       0
+   927 ;;      Totals:         0       0       0       0       0
+   928 ;;Total ram usage:        0 bytes
+   929 ;; Hardware stack levels used:    1
+   930 ;; Hardware stack levels required when called:    2
+   931 ;; This function calls:
+   932 ;;		Nothing
+   933 ;; This function is called by:
+   934 ;;		_main
+   935 ;; This function uses a non-reentrant model
+   936 ;;
+   937                           psect	text524
+   938                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+   939                           	line	140
+   940                           	global	__size_of_soldon
+   941  0007                     	__size_of_soldon	equ	__end_of_soldon-_soldon
+   942                           	
+   943  02E5                     _soldon:	
+   944                           	opt	stack 5
+   945                           ; Regs used in _soldon: []
+   946                           	line	141
+   947                           	
+   948  02E5                     l2346:	
+   949                           ;main.c: 141: RB2 = 1;
+   950  02E5  1283               	bcf	status, 5	;RP0=0, select bank0
+   951  02E6  1303               	bcf	status, 6	;RP1=0, select bank0
+   952  02E7  1506               	bsf	(50/8),(50)&7
+   953                           	line	142
+   954                           ;main.c: 142: RB3 = 0;
+   955  02E8  1186               	bcf	(51/8),(51)&7
+   956                           	line	143
+   957                           ;main.c: 143: RC4 = 0;
+   958  02E9  1207               	bcf	(60/8),(60)&7
+   959                           	line	144
+   960                           ;main.c: 144: RC5 = 1;
+   961  02EA  1687               	bsf	(61/8),(61)&7
+   962                           	line	145
+   963                           	
+   964  02EB                     l526:	
+   965  02EB  0008               	return
+   966                           	opt stack 0
+   967                           GLOBAL	__end_of_soldon
+   968  02EC                     	__end_of_soldon:
+   969 ;; =============== function _soldon ends ============
+   970                           
+   971                           	signat	_soldon,88
+   972                           	global	_sagdon
+   973                           psect	text525,local,class=CODE,delta=2
+   974                           global __ptext525
+   975  02EC                     __ptext525:
+   976                           
+   977 ;; *************** function _sagdon *****************
+   978 ;; Defined at:
+   979 ;;		line 133 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+   980 ;; Parameters:    Size  Location     Type
+   981 ;;		None
+   982 ;; Auto vars:     Size  Location     Type
+   983 ;;		None
+   984 ;; Return value:  Size  Location     Type
+   985 ;;		None               void
+   986 ;; Registers used:
+   987 ;;		None
+   988 ;; Tracked objects:
+   989 ;;		On entry : 0/0
+   990 ;;		On exit  : 0/0
+   991 ;;		Unchanged: 0/0
+   992 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   993 ;;      Params:         0       0       0       0       0
+   994 ;;      Locals:         0       0       0       0       0
+   995 ;;      Temps:          0       0       0       0       0
+   996 ;;      Totals:         0       0       0       0       0
+   997 ;;Total ram usage:        0 bytes
+   998 ;; Hardware stack levels used:    1
+   999 ;; Hardware stack levels required when called:    2
+  1000 ;; This function calls:
+  1001 ;;		Nothing
+  1002 ;; This function is called by:
+  1003 ;;		_main
+  1004 ;; This function uses a non-reentrant model
+  1005 ;;
+  1006                           psect	text525
+  1007                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1008                           	line	133
+  1009                           	global	__size_of_sagdon
+  1010  0007                     	__size_of_sagdon	equ	__end_of_sagdon-_sagdon
+  1011                           	
+  1012  02EC                     _sagdon:	
+  1013                           	opt	stack 5
+  1014                           ; Regs used in _sagdon: []
+  1015                           	line	134
+  1016                           	
+  1017  02EC                     l2344:	
+  1018                           ;main.c: 134: RB2 = 0;
+  1019  02EC  1283               	bcf	status, 5	;RP0=0, select bank0
+  1020  02ED  1303               	bcf	status, 6	;RP1=0, select bank0
+  1021  02EE  1106               	bcf	(50/8),(50)&7
+  1022                           	line	135
+  1023                           ;main.c: 135: RB3 = 1;
+  1024  02EF  1586               	bsf	(51/8),(51)&7
+  1025                           	line	136
+  1026                           ;main.c: 136: RC4 = 1;
+  1027  02F0  1607               	bsf	(60/8),(60)&7
+  1028                           	line	137
+  1029                           ;main.c: 137: RC5 = 0;
+  1030  02F1  1287               	bcf	(61/8),(61)&7
+  1031                           	line	138
+  1032                           	
+  1033  02F2                     l523:	
+  1034  02F2  0008               	return
+  1035                           	opt stack 0
+  1036                           GLOBAL	__end_of_sagdon
+  1037  02F3                     	__end_of_sagdon:
+  1038 ;; =============== function _sagdon ends ============
+  1039                           
+  1040                           	signat	_sagdon,88
+  1041                           	global	_ileri
+  1042                           psect	text526,local,class=CODE,delta=2
+  1043                           global __ptext526
+  1044  02F3                     __ptext526:
+  1045                           
+  1046 ;; *************** function _ileri *****************
+  1047 ;; Defined at:
+  1048 ;;		line 119 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1049 ;; Parameters:    Size  Location     Type
+  1050 ;;		None
+  1051 ;; Auto vars:     Size  Location     Type
+  1052 ;;		None
+  1053 ;; Return value:  Size  Location     Type
+  1054 ;;		None               void
+  1055 ;; Registers used:
+  1056 ;;		None
+  1057 ;; Tracked objects:
+  1058 ;;		On entry : 0/0
+  1059 ;;		On exit  : 0/0
+  1060 ;;		Unchanged: 0/0
+  1061 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1062 ;;      Params:         0       0       0       0       0
+  1063 ;;      Locals:         0       0       0       0       0
+  1064 ;;      Temps:          0       0       0       0       0
+  1065 ;;      Totals:         0       0       0       0       0
+  1066 ;;Total ram usage:        0 bytes
+  1067 ;; Hardware stack levels used:    1
+  1068 ;; Hardware stack levels required when called:    2
+  1069 ;; This function calls:
+  1070 ;;		Nothing
+  1071 ;; This function is called by:
+  1072 ;;		_main
+  1073 ;; This function uses a non-reentrant model
+  1074 ;;
+  1075                           psect	text526
+  1076                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1077                           	line	119
+  1078                           	global	__size_of_ileri
+  1079  0007                     	__size_of_ileri	equ	__end_of_ileri-_ileri
+  1080                           	
+  1081  02F3                     _ileri:	
+  1082                           	opt	stack 5
+  1083                           ; Regs used in _ileri: []
+  1084                           	line	120
+  1085                           	
+  1086  02F3                     l2342:	
+  1087                           ;main.c: 120: RB2 = 0;
+  1088  02F3  1283               	bcf	status, 5	;RP0=0, select bank0
+  1089  02F4  1303               	bcf	status, 6	;RP1=0, select bank0
+  1090  02F5  1106               	bcf	(50/8),(50)&7
+  1091                           	line	121
+  1092                           ;main.c: 121: RB3 = 1;
+  1093  02F6  1586               	bsf	(51/8),(51)&7
+  1094                           	line	122
+  1095                           ;main.c: 122: RC4 = 0;
+  1096  02F7  1207               	bcf	(60/8),(60)&7
+  1097                           	line	123
+  1098                           ;main.c: 123: RC5 = 1;
+  1099  02F8  1687               	bsf	(61/8),(61)&7
+  1100                           	line	124
+  1101                           	
+  1102  02F9                     l517:	
+  1103  02F9  0008               	return
+  1104                           	opt stack 0
+  1105                           GLOBAL	__end_of_ileri
+  1106  02FA                     	__end_of_ileri:
+  1107 ;; =============== function _ileri ends ============
+  1108                           
+  1109                           	signat	_ileri,88
+  1110                           	global	_pwm_init
+  1111                           psect	text527,local,class=CODE,delta=2
+  1112                           global __ptext527
+  1113  02A8                     __ptext527:
+  1114                           
+  1115 ;; *************** function _pwm_init *****************
+  1116 ;; Defined at:
+  1117 ;;		line 79 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1118 ;; Parameters:    Size  Location     Type
+  1119 ;;		None
+  1120 ;; Auto vars:     Size  Location     Type
+  1121 ;;		None
+  1122 ;; Return value:  Size  Location     Type
+  1123 ;;		None               void
+  1124 ;; Registers used:
+  1125 ;;		wreg
+  1126 ;; Tracked objects:
+  1127 ;;		On entry : 0/0
+  1128 ;;		On exit  : 0/0
+  1129 ;;		Unchanged: 0/0
+  1130 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1131 ;;      Params:         0       0       0       0       0
+  1132 ;;      Locals:         0       0       0       0       0
+  1133 ;;      Temps:          0       0       0       0       0
+  1134 ;;      Totals:         0       0       0       0       0
+  1135 ;;Total ram usage:        0 bytes
+  1136 ;; Hardware stack levels used:    1
+  1137 ;; Hardware stack levels required when called:    2
+  1138 ;; This function calls:
+  1139 ;;		Nothing
+  1140 ;; This function is called by:
+  1141 ;;		_main
+  1142 ;; This function uses a non-reentrant model
+  1143 ;;
+  1144                           psect	text527
+  1145                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1146                           	line	79
+  1147                           	global	__size_of_pwm_init
+  1148  0017                     	__size_of_pwm_init	equ	__end_of_pwm_init-_pwm_init
+  1149                           	
+  1150  02A8                     _pwm_init:	
+  1151                           	opt	stack 5
+  1152                           ; Regs used in _pwm_init: [wreg]
+  1153                           	line	80
+  1154                           	
+  1155  02A8                     l2340:	
+  1156                           ;main.c: 80: PR2 = 255;
+  1157  02A8  30FF               	movlw	(0FFh)
+  1158  02A9  1683               	bsf	status, 5	;RP0=1, select bank1
+  1159  02AA  1303               	bcf	status, 6	;RP1=0, select bank1
+  1160  02AB  0092               	movwf	(146)^080h	;volatile
+  1161                           	line	81
+  1162                           ;main.c: 81: CCPR1L = 255;
+  1163  02AC  30FF               	movlw	(0FFh)
+  1164  02AD  1283               	bcf	status, 5	;RP0=0, select bank0
+  1165  02AE  1303               	bcf	status, 6	;RP1=0, select bank0
+  1166  02AF  0095               	movwf	(21)	;volatile
+  1167                           	line	82
+  1168                           ;main.c: 82: CCPR2L = 255;
+  1169  02B0  30FF               	movlw	(0FFh)
+  1170  02B1  009B               	movwf	(27)	;volatile
+  1171                           	line	83
+  1172                           ;main.c: 83: T2CON = 4;
+  1173  02B2  3004               	movlw	(04h)
+  1174  02B3  0092               	movwf	(18)	;volatile
+  1175                           	line	84
+  1176                           ;main.c: 84: CCP1CON = 12;
+  1177  02B4  300C               	movlw	(0Ch)
+  1178  02B5  0097               	movwf	(23)	;volatile
+  1179                           	line	85
+  1180                           ;main.c: 85: CCP2CON = 12;
+  1181  02B6  300C               	movlw	(0Ch)
+  1182  02B7  009D               	movwf	(29)	;volatile
+  1183                           	line	86
+  1184                           ;main.c: 86: T1CON = 0x01;
+  1185  02B8  3001               	movlw	(01h)
+  1186  02B9  0090               	movwf	(16)	;volatile
+  1187                           	line	87
+  1188                           ;main.c: 87: OPTION = 0x80;
+  1189  02BA  3080               	movlw	(080h)
+  1190  02BB  1683               	bsf	status, 5	;RP0=1, select bank1
+  1191  02BC  1303               	bcf	status, 6	;RP1=0, select bank1
+  1192  02BD  0081               	movwf	(129)^080h	;volatile
+  1193                           	line	88
+  1194                           	
+  1195  02BE                     l514:	
+  1196  02BE  0008               	return
+  1197                           	opt stack 0
+  1198                           GLOBAL	__end_of_pwm_init
+  1199  02BF                     	__end_of_pwm_init:
+  1200 ;; =============== function _pwm_init ends ============
+  1201                           
+  1202                           	signat	_pwm_init,88
+  1203                           	global	_set_pwm
+  1204                           psect	text528,local,class=CODE,delta=2
+  1205                           global __ptext528
+  1206  02CE                     __ptext528:
+  1207                           
+  1208 ;; *************** function _set_pwm *****************
+  1209 ;; Defined at:
+  1210 ;;		line 74 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1211 ;; Parameters:    Size  Location     Type
+  1212 ;;  motor1_pwm      1    wreg     unsigned char 
+  1213 ;;  motor2_pwm      1    0[BANK0 ] unsigned char 
+  1214 ;; Auto vars:     Size  Location     Type
+  1215 ;;  motor1_pwm      1    1[BANK0 ] unsigned char 
+  1216 ;; Return value:  Size  Location     Type
+  1217 ;;		None               void
+  1218 ;; Registers used:
+  1219 ;;		wreg
+  1220 ;; Tracked objects:
+  1221 ;;		On entry : 0/0
+  1222 ;;		On exit  : 0/0
+  1223 ;;		Unchanged: 0/0
+  1224 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1225 ;;      Params:         0       1       0       0       0
+  1226 ;;      Locals:         0       1       0       0       0
+  1227 ;;      Temps:          0       0       0       0       0
+  1228 ;;      Totals:         0       2       0       0       0
+  1229 ;;Total ram usage:        2 bytes
+  1230 ;; Hardware stack levels used:    1
+  1231 ;; Hardware stack levels required when called:    2
+  1232 ;; This function calls:
+  1233 ;;		Nothing
+  1234 ;; This function is called by:
+  1235 ;;		_main
+  1236 ;;		_aragaz
+  1237 ;; This function uses a non-reentrant model
+  1238 ;;
+  1239                           psect	text528
+  1240                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1241                           	line	74
+  1242                           	global	__size_of_set_pwm
+  1243  0008                     	__size_of_set_pwm	equ	__end_of_set_pwm-_set_pwm
+  1244                           	
+  1245  02CE                     _set_pwm:	
+  1246                           	opt	stack 5
+  1247                           ; Regs used in _set_pwm: [wreg]
+  1248                           ;set_pwm@motor1_pwm stored from wreg
+  1249  02CE  1283               	bcf	status, 5	;RP0=0, select bank0
+  1250  02CF  1303               	bcf	status, 6	;RP1=0, select bank0
+  1251  02D0  00A1               	movwf	(set_pwm@motor1_pwm)
+  1252                           	line	75
+  1253                           	
+  1254  02D1                     l2338:	
+  1255                           ;main.c: 75: CCPR1L = motor2_pwm;
+  1256  02D1  0820               	movf	(set_pwm@motor2_pwm),w
+  1257  02D2  0095               	movwf	(21)	;volatile
+  1258                           	line	76
+  1259                           ;main.c: 76: CCPR2L = motor1_pwm;
+  1260  02D3  0821               	movf	(set_pwm@motor1_pwm),w
+  1261  02D4  009B               	movwf	(27)	;volatile
+  1262                           	line	77
+  1263                           	
+  1264  02D5                     l511:	
+  1265  02D5  0008               	return
+  1266                           	opt stack 0
+  1267                           GLOBAL	__end_of_set_pwm
+  1268  02D6                     	__end_of_set_pwm:
+  1269 ;; =============== function _set_pwm ends ============
+  1270                           
+  1271                           	signat	_set_pwm,8312
+  1272                           	global	_timer_init
+  1273                           psect	text529,local,class=CODE,delta=2
+  1274                           global __ptext529
+  1275  02BF                     __ptext529:
+  1276                           
+  1277 ;; *************** function _timer_init *****************
+  1278 ;; Defined at:
+  1279 ;;		line 62 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1280 ;; Parameters:    Size  Location     Type
+  1281 ;;		None
+  1282 ;; Auto vars:     Size  Location     Type
+  1283 ;;		None
+  1284 ;; Return value:  Size  Location     Type
+  1285 ;;		None               void
+  1286 ;; Registers used:
+  1287 ;;		wreg
+  1288 ;; Tracked objects:
+  1289 ;;		On entry : 0/0
+  1290 ;;		On exit  : 0/0
+  1291 ;;		Unchanged: 0/0
+  1292 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1293 ;;      Params:         0       0       0       0       0
+  1294 ;;      Locals:         0       0       0       0       0
+  1295 ;;      Temps:          0       0       0       0       0
+  1296 ;;      Totals:         0       0       0       0       0
+  1297 ;;Total ram usage:        0 bytes
+  1298 ;; Hardware stack levels used:    1
+  1299 ;; Hardware stack levels required when called:    2
+  1300 ;; This function calls:
+  1301 ;;		Nothing
+  1302 ;; This function is called by:
+  1303 ;;		_main
+  1304 ;; This function uses a non-reentrant model
+  1305 ;;
+  1306                           psect	text529
+  1307                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1308                           	line	62
+  1309                           	global	__size_of_timer_init
+  1310  000F                     	__size_of_timer_init	equ	__end_of_timer_init-_timer_init
+  1311                           	
+  1312  02BF                     _timer_init:	
+  1313                           	opt	stack 5
+  1314                           ; Regs used in _timer_init: [wreg]
+  1315                           	line	63
+  1316                           	
+  1317  02BF                     l2320:	
+  1318                           ;main.c: 63: TMR0=55;
+  1319  02BF  3037               	movlw	(037h)
+  1320  02C0  1283               	bcf	status, 5	;RP0=0, select bank0
+  1321  02C1  1303               	bcf	status, 6	;RP1=0, select bank0
+  1322  02C2  0081               	movwf	(1)	;volatile
+  1323                           	line	64
+  1324                           	
+  1325  02C3                     l2322:	
+  1326                           ;main.c: 64: T0CS=0;
+  1327  02C3  1683               	bsf	status, 5	;RP0=1, select bank1
+  1328  02C4  1303               	bcf	status, 6	;RP1=0, select bank1
+  1329  02C5  1281               	bcf	(1037/8)^080h,(1037)&7
+  1330                           	line	65
+  1331                           	
+  1332  02C6                     l2324:	
+  1333                           ;main.c: 65: PSA=0;
+  1334  02C6  1181               	bcf	(1035/8)^080h,(1035)&7
+  1335                           	line	66
+  1336                           	
+  1337  02C7                     l2326:	
+  1338                           ;main.c: 66: PS2=0;
+  1339  02C7  1101               	bcf	(1034/8)^080h,(1034)&7
+  1340                           	line	67
+  1341                           	
+  1342  02C8                     l2328:	
+  1343                           ;main.c: 67: PS1=1;
+  1344  02C8  1481               	bsf	(1033/8)^080h,(1033)&7
+  1345                           	line	68
+  1346                           	
+  1347  02C9                     l2330:	
+  1348                           ;main.c: 68: PS0=1;
+  1349  02C9  1401               	bsf	(1032/8)^080h,(1032)&7
+  1350                           	line	69
+  1351                           	
+  1352  02CA                     l2332:	
+  1353                           ;main.c: 69: T0IF=0;
+  1354  02CA  110B               	bcf	(90/8),(90)&7
+  1355                           	line	70
+  1356                           	
+  1357  02CB                     l2334:	
+  1358                           ;main.c: 70: T0IE=1;
+  1359  02CB  168B               	bsf	(93/8),(93)&7
+  1360                           	line	71
+  1361                           	
+  1362  02CC                     l2336:	
+  1363                           ;main.c: 71: GIE=1;
+  1364  02CC  178B               	bsf	(95/8),(95)&7
+  1365                           	line	72
+  1366                           	
+  1367  02CD                     l508:	
+  1368  02CD  0008               	return
+  1369                           	opt stack 0
+  1370                           GLOBAL	__end_of_timer_init
+  1371  02CE                     	__end_of_timer_init:
+  1372 ;; =============== function _timer_init ends ============
+  1373                           
+  1374                           	signat	_timer_init,88
+  1375                           	global	_init
+  1376                           psect	text530,local,class=CODE,delta=2
+  1377                           global __ptext530
+  1378  0290                     __ptext530:
+  1379                           
+  1380 ;; *************** function _init *****************
+  1381 ;; Defined at:
+  1382 ;;		line 52 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1383 ;; Parameters:    Size  Location     Type
+  1384 ;;		None
+  1385 ;; Auto vars:     Size  Location     Type
+  1386 ;;		None
+  1387 ;; Return value:  Size  Location     Type
+  1388 ;;		None               void
+  1389 ;; Registers used:
+  1390 ;;		wreg, status,2
+  1391 ;; Tracked objects:
+  1392 ;;		On entry : 0/0
+  1393 ;;		On exit  : 0/0
+  1394 ;;		Unchanged: 0/0
+  1395 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1396 ;;      Params:         0       0       0       0       0
+  1397 ;;      Locals:         0       0       0       0       0
+  1398 ;;      Temps:          0       0       0       0       0
+  1399 ;;      Totals:         0       0       0       0       0
+  1400 ;;Total ram usage:        0 bytes
+  1401 ;; Hardware stack levels used:    1
+  1402 ;; Hardware stack levels required when called:    2
+  1403 ;; This function calls:
+  1404 ;;		Nothing
+  1405 ;; This function is called by:
+  1406 ;;		_main
+  1407 ;; This function uses a non-reentrant model
+  1408 ;;
+  1409                           psect	text530
+  1410                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1411                           	line	52
+  1412                           	global	__size_of_init
+  1413  0018                     	__size_of_init	equ	__end_of_init-_init
+  1414                           	
+  1415  0290                     _init:	
+  1416                           	opt	stack 5
+  1417                           ; Regs used in _init: [wreg+status,2]
+  1418                           	line	53
+  1419                           	
+  1420  0290                     l2310:	
+  1421                           ;main.c: 53: ADCON1 = 0x07;
+  1422  0290  3007               	movlw	(07h)
+  1423  0291  1683               	bsf	status, 5	;RP0=1, select bank1
+  1424  0292  1303               	bcf	status, 6	;RP1=0, select bank1
+  1425  0293  009F               	movwf	(159)^080h	;volatile
+  1426                           	line	54
+  1427                           ;main.c: 54: TRISA = 0x01;
+  1428  0294  3001               	movlw	(01h)
+  1429  0295  0085               	movwf	(133)^080h	;volatile
+  1430                           	line	55
+  1431                           	
+  1432  0296                     l2312:	
+  1433                           ;main.c: 55: PORTA = 0x00;
+  1434  0296  1283               	bcf	status, 5	;RP0=0, select bank0
+  1435  0297  1303               	bcf	status, 6	;RP1=0, select bank0
+  1436  0298  0185               	clrf	(5)	;volatile
+  1437                           	line	56
+  1438                           	
+  1439  0299                     l2314:	
+  1440                           ;main.c: 56: TRISB = 0x33;
+  1441  0299  3033               	movlw	(033h)
+  1442  029A  1683               	bsf	status, 5	;RP0=1, select bank1
+  1443  029B  1303               	bcf	status, 6	;RP1=0, select bank1
+  1444  029C  0086               	movwf	(134)^080h	;volatile
+  1445                           	line	57
+  1446                           ;main.c: 57: PORTB = 0x00;
+  1447  029D  1283               	bcf	status, 5	;RP0=0, select bank0
+  1448  029E  1303               	bcf	status, 6	;RP1=0, select bank0
+  1449  029F  0186               	clrf	(6)	;volatile
+  1450                           	line	58
+  1451                           	
+  1452  02A0                     l2316:	
+  1453                           ;main.c: 58: TRISC = 0xC0;
+  1454  02A0  30C0               	movlw	(0C0h)
+  1455  02A1  1683               	bsf	status, 5	;RP0=1, select bank1
+  1456  02A2  1303               	bcf	status, 6	;RP1=0, select bank1
+  1457  02A3  0087               	movwf	(135)^080h	;volatile
+  1458                           	line	59
+  1459                           	
+  1460  02A4                     l2318:	
+  1461                           ;main.c: 59: PORTC = 0x00;
+  1462  02A4  1283               	bcf	status, 5	;RP0=0, select bank0
+  1463  02A5  1303               	bcf	status, 6	;RP1=0, select bank0
+  1464  02A6  0187               	clrf	(7)	;volatile
+  1465                           	line	60
+  1466                           	
+  1467  02A7                     l505:	
+  1468  02A7  0008               	return
+  1469                           	opt stack 0
+  1470                           GLOBAL	__end_of_init
+  1471  02A8                     	__end_of_init:
+  1472 ;; =============== function _init ends ============
+  1473                           
+  1474                           	signat	_init,88
+  1475                           	global	_timer_func
+  1476                           psect	text531,local,class=CODE,delta=2
+  1477                           global __ptext531
+  1478  0015                     __ptext531:
+  1479                           
+  1480 ;; *************** function _timer_func *****************
+  1481 ;; Defined at:
+  1482 ;;		line 238 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  1483 ;; Parameters:    Size  Location     Type
+  1484 ;;		None
+  1485 ;; Auto vars:     Size  Location     Type
+  1486 ;;		None
+  1487 ;; Return value:  Size  Location     Type
+  1488 ;;		None               void
+  1489 ;; Registers used:
+  1490 ;;		wreg, status,2, status,0, pclath, cstack
+  1491 ;; Tracked objects:
+  1492 ;;		On entry : 0/0
+  1493 ;;		On exit  : 0/0
+  1494 ;;		Unchanged: 0/0
+  1495 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1496 ;;      Params:         0       0       0       0       0
+  1497 ;;      Locals:         0       0       0       0       0
+  1498 ;;      Temps:          5       0       0       0       0
+  1499 ;;      Totals:         5       0       0       0       0
+  1500 ;;Total ram usage:        5 bytes
+  1501 ;; Hardware stack levels used:    1
+  1502 ;; Hardware stack levels required when called:    1
+  1503 ;; This function calls:
+  1504 ;;		i1_set_pwm
+  1505 ;;		_geri
+  1506 ;;		i1_ileri
+  1507 ;;		i1_soldon
+  1508 ;;		i1_sagdon
+  1509 ;; This function is called by:
+  1510 ;;		Interrupt level 1
+  1511 ;; This function uses a non-reentrant model
+  1512 ;;
+  1513                           psect	text531
+  1514                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  1515                           	line	238
+  1516                           	global	__size_of_timer_func
+  1517  019B                     	__size_of_timer_func	equ	__end_of_timer_func-_timer_func
+  1518                           	
+  1519  0015                     _timer_func:	
+  1520                           	opt	stack 5
+  1521                           ; Regs used in _timer_func: [wreg+status,2+status,0+pclath+cstack]
+  1522                           psect	intentry,class=CODE,delta=2
+  1523                           global __pintentry
+  1524  0004                     __pintentry:
+  1525                           global interrupt_function
+  1526  0004                     interrupt_function:
+  1527                           	global saved_w
+  1528  007E                     	saved_w	set	btemp+0
+  1529  0004  00FE               	movwf	saved_w
+  1530  0005  0803               	movf	status,w
+  1531  0006  00F3               	movwf	(??_timer_func+1)
+  1532  0007  0804               	movf	fsr0,w
+  1533  0008  00F4               	movwf	(??_timer_func+2)
+  1534  0009  080A               	movf	pclath,w
+  1535  000A  00F5               	movwf	(??_timer_func+3)
+  1536  000B  1283               	bcf	status, 5	;RP0=0, select bank0
+  1537  000C  1303               	bcf	status, 6	;RP1=0, select bank0
+  1538  000D  087F               	movf	btemp+1,w
+  1539  000E  00F6               	movwf	(??_timer_func+4)
+  1540  000F  120A  118A  2815   	ljmp	_timer_func
+  1541                           psect	text531
+  1542                           	line	239
+  1543                           	
+  1544  0015                     i1l2098:	
+  1545                           ;main.c: 239: if(TMR0IF){
+  1546  0015  1D0B               	btfss	(90/8),(90)&7
+  1547  0016  2818               	goto	u268_21
+  1548  0017  2819               	goto	u268_20
+  1549  0018                     u268_21:
+  1550  0018  29A5               	goto	i1l609
+  1551  0019                     u268_20:
+  1552                           	line	240
+  1553                           	
+  1554  0019                     i1l2100:	
+  1555                           ;main.c: 240: if (mymode == 6){
+  1556  0019  0879               	movf	(_mymode),w
+  1557  001A  3A06               	xorlw	06h
+  1558  001B  1D03               	skipz
+  1559  001C  281E               	goto	u269_21
+  1560  001D  281F               	goto	u269_20
+  1561  001E                     u269_21:
+  1562  001E  2838               	goto	i1l2112
+  1563  001F                     u269_20:
+  1564                           	line	241
+  1565                           	
+  1566  001F                     i1l2102:	
+  1567                           ;main.c: 241: if (RB0 == 0 || RC6 == 0 || RB4 == 0 || RB1 == 0 || RC7 == 0)
+  1568  001F  1C06               	btfss	(48/8),(48)&7
+  1569  0020  2822               	goto	u270_21
+  1570  0021  2823               	goto	u270_20
+  1571  0022                     u270_21:
+  1572  0022  2833               	goto	i1l576
+  1573  0023                     u270_20:
+  1574                           	
+  1575  0023                     i1l2104:	
+  1576  0023  1F07               	btfss	(62/8),(62)&7
+  1577  0024  2826               	goto	u271_21
+  1578  0025  2827               	goto	u271_20
+  1579  0026                     u271_21:
+  1580  0026  2833               	goto	i1l576
+  1581  0027                     u271_20:
+  1582                           	
+  1583  0027                     i1l2106:	
+  1584  0027  1E06               	btfss	(52/8),(52)&7
+  1585  0028  282A               	goto	u272_21
+  1586  0029  282B               	goto	u272_20
+  1587  002A                     u272_21:
+  1588  002A  2833               	goto	i1l576
+  1589  002B                     u272_20:
+  1590                           	
+  1591  002B                     i1l2108:	
+  1592  002B  1C86               	btfss	(49/8),(49)&7
+  1593  002C  282E               	goto	u273_21
+  1594  002D  282F               	goto	u273_20
+  1595  002E                     u273_21:
+  1596  002E  2833               	goto	i1l576
+  1597  002F                     u273_20:
+  1598                           	
+  1599  002F                     i1l2110:	
+  1600  002F  1B87               	btfsc	(63/8),(63)&7
+  1601  0030  2832               	goto	u274_21
+  1602  0031  2833               	goto	u274_20
+  1603  0032                     u274_21:
+  1604  0032  2835               	goto	i1l574
+  1605  0033                     u274_20:
+  1606                           	
+  1607  0033                     i1l576:	
+  1608                           	line	242
+  1609                           ;main.c: 242: RC0 = 1;
+  1610  0033  1407               	bsf	(56/8),(56)&7
+  1611  0034  299F               	goto	i1l578
+  1612                           	line	243
+  1613                           	
+  1614  0035                     i1l574:	
+  1615                           	line	244
+  1616                           ;main.c: 243: else
+  1617                           ;main.c: 244: RC0 = 0;
+  1618  0035  1007               	bcf	(56/8),(56)&7
+  1619  0036  299F               	goto	i1l578
+  1620                           	
+  1621  0037                     i1l577:	
+  1622                           	line	245
+  1623                           ;main.c: 245: }
+  1624  0037  299F               	goto	i1l578
+  1625                           	line	259
+  1626                           	
+  1627  0038                     i1l573:	
+  1628                           	
+  1629  0038                     i1l2112:	
+  1630                           ;main.c: 259: else if (mymode == 1) {
+  1631  0038  0879               	movf	(_mymode),w
+  1632  0039  3A01               	xorlw	01h
+  1633  003A  1D03               	skipz
+  1634  003B  283D               	goto	u275_21
+  1635  003C  283E               	goto	u275_20
+  1636  003D                     u275_21:
+  1637  003D  299F               	goto	i1l578
+  1638  003E                     u275_20:
+  1639                           	line	260
+  1640                           	
+  1641  003E                     i1l2114:	
+  1642                           ;main.c: 260: if (RC7 == 0 || RB1 ==0){
+  1643  003E  1F87               	btfss	(63/8),(63)&7
+  1644  003F  2841               	goto	u276_21
+  1645  0040  2842               	goto	u276_20
+  1646  0041                     u276_21:
+  1647  0041  2847               	goto	i1l2118
+  1648  0042                     u276_20:
+  1649                           	
+  1650  0042                     i1l2116:	
+  1651  0042  1886               	btfsc	(49/8),(49)&7
+  1652  0043  2845               	goto	u277_21
+  1653  0044  2846               	goto	u277_20
+  1654  0045                     u277_21:
+  1655  0045  2857               	goto	i1l580
+  1656  0046                     u277_20:
+  1657  0046  2847               	goto	i1l2118
+  1658                           	
+  1659  0047                     i1l582:	
+  1660                           	line	261
+  1661                           	
+  1662  0047                     i1l2118:	
+  1663                           ;main.c: 261: set_pwm(255,255);
+  1664  0047  30FF               	movlw	(0FFh)
+  1665  0048  00F2               	movwf	(??_timer_func+0)+0
+  1666  0049  0872               	movf	(??_timer_func+0)+0,w
+  1667  004A  00F0               	movwf	(?i1_set_pwm)
+  1668  004B  30FF               	movlw	(0FFh)
+  1669  004C  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1670                           	line	262
+  1671                           	
+  1672  0051                     i1l2120:	
+  1673                           ;main.c: 262: geri();
+  1674  0051  120A  118A  230F   	fcall	_geri
+              120A  118A         
+  1675                           	line	263
+  1676                           ;main.c: 263: }
+  1677  0056  299F               	goto	i1l578
+  1678                           	line	264
+  1679                           	
+  1680  0057                     i1l580:	
+  1681                           ;main.c: 264: else if (RB0 == 0 && RC6 == 0 && RB4 == 0){
+  1682  0057  1806               	btfsc	(48/8),(48)&7
+  1683  0058  285A               	goto	u278_21
+  1684  0059  285B               	goto	u278_20
+  1685  005A                     u278_21:
+  1686  005A  2873               	goto	i1l584
+  1687  005B                     u278_20:
+  1688                           	
+  1689  005B                     i1l2122:	
+  1690  005B  1B07               	btfsc	(62/8),(62)&7
+  1691  005C  285E               	goto	u279_21
+  1692  005D  285F               	goto	u279_20
+  1693  005E                     u279_21:
+  1694  005E  2873               	goto	i1l584
+  1695  005F                     u279_20:
+  1696                           	
+  1697  005F                     i1l2124:	
+  1698  005F  1A06               	btfsc	(52/8),(52)&7
+  1699  0060  2862               	goto	u280_21
+  1700  0061  2863               	goto	u280_20
+  1701  0062                     u280_21:
+  1702  0062  2873               	goto	i1l584
+  1703  0063                     u280_20:
+  1704                           	line	265
+  1705                           	
+  1706  0063                     i1l2126:	
+  1707                           ;main.c: 265: set_pwm(255,255);
+  1708  0063  30FF               	movlw	(0FFh)
+  1709  0064  00F2               	movwf	(??_timer_func+0)+0
+  1710  0065  0872               	movf	(??_timer_func+0)+0,w
+  1711  0066  00F0               	movwf	(?i1_set_pwm)
+  1712  0067  30FF               	movlw	(0FFh)
+  1713  0068  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1714                           	line	266
+  1715                           	
+  1716  006D                     i1l2128:	
+  1717                           ;main.c: 266: ileri();
+  1718  006D  120A  118A  2308   	fcall	i1_ileri
+              120A  118A         
+  1719                           	line	267
+  1720                           ;main.c: 267: }
+  1721  0072  299F               	goto	i1l578
+  1722                           	line	268
+  1723                           	
+  1724  0073                     i1l584:	
+  1725                           ;main.c: 268: else if (RB0 == 0 && RB4 == 0 && RC6 == 1){
+  1726  0073  1806               	btfsc	(48/8),(48)&7
+  1727  0074  2876               	goto	u281_21
+  1728  0075  2877               	goto	u281_20
+  1729  0076                     u281_21:
+  1730  0076  288F               	goto	i1l586
+  1731  0077                     u281_20:
+  1732                           	
+  1733  0077                     i1l2130:	
+  1734  0077  1A06               	btfsc	(52/8),(52)&7
+  1735  0078  287A               	goto	u282_21
+  1736  0079  287B               	goto	u282_20
+  1737  007A                     u282_21:
+  1738  007A  288F               	goto	i1l586
+  1739  007B                     u282_20:
+  1740                           	
+  1741  007B                     i1l2132:	
+  1742  007B  1F07               	btfss	(62/8),(62)&7
+  1743  007C  287E               	goto	u283_21
+  1744  007D  287F               	goto	u283_20
+  1745  007E                     u283_21:
+  1746  007E  288F               	goto	i1l586
+  1747  007F                     u283_20:
+  1748                           	line	269
+  1749                           	
+  1750  007F                     i1l2134:	
+  1751                           ;main.c: 269: set_pwm(255,255);
+  1752  007F  30FF               	movlw	(0FFh)
+  1753  0080  00F2               	movwf	(??_timer_func+0)+0
+  1754  0081  0872               	movf	(??_timer_func+0)+0,w
+  1755  0082  00F0               	movwf	(?i1_set_pwm)
+  1756  0083  30FF               	movlw	(0FFh)
+  1757  0084  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1758                           	line	270
+  1759                           	
+  1760  0089                     i1l2136:	
+  1761                           ;main.c: 270: soldon();
+  1762  0089  120A  118A  22FA   	fcall	i1_soldon
+              120A  118A         
+  1763                           	line	271
+  1764                           ;main.c: 271: }
+  1765  008E  299F               	goto	i1l578
+  1766                           	line	272
+  1767                           	
+  1768  008F                     i1l586:	
+  1769                           ;main.c: 272: else if (RB0 == 0 && RB4 == 1 && RC6 == 0){
+  1770  008F  1806               	btfsc	(48/8),(48)&7
+  1771  0090  2892               	goto	u284_21
+  1772  0091  2893               	goto	u284_20
+  1773  0092                     u284_21:
+  1774  0092  28AB               	goto	i1l588
+  1775  0093                     u284_20:
+  1776                           	
+  1777  0093                     i1l2138:	
+  1778  0093  1E06               	btfss	(52/8),(52)&7
+  1779  0094  2896               	goto	u285_21
+  1780  0095  2897               	goto	u285_20
+  1781  0096                     u285_21:
+  1782  0096  28AB               	goto	i1l588
+  1783  0097                     u285_20:
+  1784                           	
+  1785  0097                     i1l2140:	
+  1786  0097  1B07               	btfsc	(62/8),(62)&7
+  1787  0098  289A               	goto	u286_21
+  1788  0099  289B               	goto	u286_20
+  1789  009A                     u286_21:
+  1790  009A  28AB               	goto	i1l588
+  1791  009B                     u286_20:
+  1792                           	line	273
+  1793                           	
+  1794  009B                     i1l2142:	
+  1795                           ;main.c: 273: set_pwm(255,255);
+  1796  009B  30FF               	movlw	(0FFh)
+  1797  009C  00F2               	movwf	(??_timer_func+0)+0
+  1798  009D  0872               	movf	(??_timer_func+0)+0,w
+  1799  009E  00F0               	movwf	(?i1_set_pwm)
+  1800  009F  30FF               	movlw	(0FFh)
+  1801  00A0  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1802                           	line	274
+  1803                           	
+  1804  00A5                     i1l2144:	
+  1805                           ;main.c: 274: sagdon();
+  1806  00A5  120A  118A  2301   	fcall	i1_sagdon
+              120A  118A         
+  1807                           	line	275
+  1808                           ;main.c: 275: }
+  1809  00AA  299F               	goto	i1l578
+  1810                           	line	276
+  1811                           	
+  1812  00AB                     i1l588:	
+  1813                           ;main.c: 276: else if (RB4 == 0 && 1 == 0 && RB0 == 0 && 1 == 0 && RC6 == 0){
+  1814  00AB  28C3               	goto	i1l590
+  1815                           	
+  1816  00AC                     i1l2146:	
+  1817  00AC  28C3               	goto	i1l590
+  1818                           	
+  1819  00AD                     i1l2148:	
+  1820  00AD  28C3               	goto	i1l590
+  1821                           	
+  1822  00AE                     i1l2150:	
+  1823  00AE  28C3               	goto	i1l590
+  1824                           	
+  1825  00AF                     i1l2152:	
+  1826  00AF  1B07               	btfsc	(62/8),(62)&7
+  1827  00B0  28B2               	goto	u287_21
+  1828  00B1  28B3               	goto	u287_20
+  1829  00B2                     u287_21:
+  1830  00B2  28C3               	goto	i1l590
+  1831  00B3                     u287_20:
+  1832                           	line	277
+  1833                           	
+  1834  00B3                     i1l2154:	
+  1835                           ;main.c: 277: set_pwm(200,200);
+  1836  00B3  30C8               	movlw	(0C8h)
+  1837  00B4  00F2               	movwf	(??_timer_func+0)+0
+  1838  00B5  0872               	movf	(??_timer_func+0)+0,w
+  1839  00B6  00F0               	movwf	(?i1_set_pwm)
+  1840  00B7  30C8               	movlw	(0C8h)
+  1841  00B8  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1842                           	line	278
+  1843                           	
+  1844  00BD                     i1l2156:	
+  1845                           ;main.c: 278: ileri();
+  1846  00BD  120A  118A  2308   	fcall	i1_ileri
+              120A  118A         
+  1847                           	line	279
+  1848                           ;main.c: 279: }
+  1849  00C2  299F               	goto	i1l578
+  1850                           	line	280
+  1851                           	
+  1852  00C3                     i1l590:	
+  1853                           ;main.c: 280: else if (RB4 == 0 && 1 == 0 && RB0 == 0 && 1 == 1 && RC6 == 1){
+  1854  00C3  28DD               	goto	i1l592
+  1855                           	
+  1856  00C4                     i1l2158:	
+  1857  00C4  28DD               	goto	i1l592
+  1858                           	
+  1859  00C5                     i1l2160:	
+  1860  00C5  1806               	btfsc	(48/8),(48)&7
+  1861  00C6  28C8               	goto	u288_21
+  1862  00C7  28C9               	goto	u288_20
+  1863  00C8                     u288_21:
+  1864  00C8  28DD               	goto	i1l592
+  1865  00C9                     u288_20:
+  1866                           	
+  1867  00C9                     i1l2162:	
+  1868  00C9  1F07               	btfss	(62/8),(62)&7
+  1869  00CA  28CC               	goto	u289_21
+  1870  00CB  28CD               	goto	u289_20
+  1871  00CC                     u289_21:
+  1872  00CC  28DD               	goto	i1l592
+  1873  00CD                     u289_20:
+  1874                           	line	281
+  1875                           	
+  1876  00CD                     i1l2164:	
+  1877                           ;main.c: 281: set_pwm(200,200);
+  1878  00CD  30C8               	movlw	(0C8h)
+  1879  00CE  00F2               	movwf	(??_timer_func+0)+0
+  1880  00CF  0872               	movf	(??_timer_func+0)+0,w
+  1881  00D0  00F0               	movwf	(?i1_set_pwm)
+  1882  00D1  30C8               	movlw	(0C8h)
+  1883  00D2  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1884                           	line	282
+  1885                           	
+  1886  00D7                     i1l2166:	
+  1887                           ;main.c: 282: soldon();
+  1888  00D7  120A  118A  22FA   	fcall	i1_soldon
+              120A  118A         
+  1889                           	line	283
+  1890                           ;main.c: 283: }
+  1891  00DC  299F               	goto	i1l578
+  1892                           	line	284
+  1893                           	
+  1894  00DD                     i1l592:	
+  1895                           ;main.c: 284: else if (RB4 == 1 && 1 == 1 && RB0 == 0 && 1 == 0 && RC6 == 0){
+  1896  00DD  1E06               	btfss	(52/8),(52)&7
+  1897  00DE  28E0               	goto	u290_21
+  1898  00DF  28E1               	goto	u290_20
+  1899  00E0                     u290_21:
+  1900  00E0  28F7               	goto	i1l594
+  1901  00E1                     u290_20:
+  1902                           	
+  1903  00E1                     i1l2168:	
+  1904  00E1  28F7               	goto	i1l594
+  1905                           	
+  1906  00E2                     i1l2170:	
+  1907  00E2  28F7               	goto	i1l594
+  1908                           	
+  1909  00E3                     i1l2172:	
+  1910  00E3  1B07               	btfsc	(62/8),(62)&7
+  1911  00E4  28E6               	goto	u291_21
+  1912  00E5  28E7               	goto	u291_20
+  1913  00E6                     u291_21:
+  1914  00E6  28F7               	goto	i1l594
+  1915  00E7                     u291_20:
+  1916                           	line	285
+  1917                           	
+  1918  00E7                     i1l2174:	
+  1919                           ;main.c: 285: set_pwm(200,200);
+  1920  00E7  30C8               	movlw	(0C8h)
+  1921  00E8  00F2               	movwf	(??_timer_func+0)+0
+  1922  00E9  0872               	movf	(??_timer_func+0)+0,w
+  1923  00EA  00F0               	movwf	(?i1_set_pwm)
+  1924  00EB  30C8               	movlw	(0C8h)
+  1925  00EC  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1926                           	line	286
+  1927                           	
+  1928  00F1                     i1l2176:	
+  1929                           ;main.c: 286: sagdon();
+  1930  00F1  120A  118A  2301   	fcall	i1_sagdon
+              120A  118A         
+  1931                           	line	287
+  1932                           ;main.c: 287: }
+  1933  00F6  299F               	goto	i1l578
+  1934                           	line	288
+  1935                           	
+  1936  00F7                     i1l594:	
+  1937                           ;main.c: 288: else if (RB4 == 0 && 1 == 0 && RB0 == 0 && 1 == 0 && RC6 == 1){
+  1938  00F7  290F               	goto	i1l596
+  1939                           	
+  1940  00F8                     i1l2178:	
+  1941  00F8  290F               	goto	i1l596
+  1942                           	
+  1943  00F9                     i1l2180:	
+  1944  00F9  290F               	goto	i1l596
+  1945                           	
+  1946  00FA                     i1l2182:	
+  1947  00FA  290F               	goto	i1l596
+  1948                           	
+  1949  00FB                     i1l2184:	
+  1950  00FB  1F07               	btfss	(62/8),(62)&7
+  1951  00FC  28FE               	goto	u292_21
+  1952  00FD  28FF               	goto	u292_20
+  1953  00FE                     u292_21:
+  1954  00FE  290F               	goto	i1l596
+  1955  00FF                     u292_20:
+  1956                           	line	289
+  1957                           	
+  1958  00FF                     i1l2186:	
+  1959                           ;main.c: 289: set_pwm(200,200);
+  1960  00FF  30C8               	movlw	(0C8h)
+  1961  0100  00F2               	movwf	(??_timer_func+0)+0
+  1962  0101  0872               	movf	(??_timer_func+0)+0,w
+  1963  0102  00F0               	movwf	(?i1_set_pwm)
+  1964  0103  30C8               	movlw	(0C8h)
+  1965  0104  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  1966                           	line	290
+  1967                           	
+  1968  0109                     i1l2188:	
+  1969                           ;main.c: 290: soldon();
+  1970  0109  120A  118A  22FA   	fcall	i1_soldon
+              120A  118A         
+  1971                           	line	291
+  1972                           ;main.c: 291: }
+  1973  010E  299F               	goto	i1l578
+  1974                           	line	292
+  1975                           	
+  1976  010F                     i1l596:	
+  1977                           ;main.c: 292: else if (RB4 == 1 && 1 == 0 && RB0 == 0 && 1 == 0 && RC6 == 0){
+  1978  010F  2927               	goto	i1l598
+  1979                           	
+  1980  0110                     i1l2190:	
+  1981  0110  2927               	goto	i1l598
+  1982                           	
+  1983  0111                     i1l2192:	
+  1984  0111  2927               	goto	i1l598
+  1985                           	
+  1986  0112                     i1l2194:	
+  1987  0112  2927               	goto	i1l598
+  1988                           	
+  1989  0113                     i1l2196:	
+  1990  0113  1B07               	btfsc	(62/8),(62)&7
+  1991  0114  2916               	goto	u293_21
+  1992  0115  2917               	goto	u293_20
+  1993  0116                     u293_21:
+  1994  0116  2927               	goto	i1l598
+  1995  0117                     u293_20:
+  1996                           	line	293
+  1997                           	
+  1998  0117                     i1l2198:	
+  1999                           ;main.c: 293: set_pwm(200,200);
+  2000  0117  30C8               	movlw	(0C8h)
+  2001  0118  00F2               	movwf	(??_timer_func+0)+0
+  2002  0119  0872               	movf	(??_timer_func+0)+0,w
+  2003  011A  00F0               	movwf	(?i1_set_pwm)
+  2004  011B  30C8               	movlw	(0C8h)
+  2005  011C  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  2006                           	line	294
+  2007                           	
+  2008  0121                     i1l2200:	
+  2009                           ;main.c: 294: sagdon();
+  2010  0121  120A  118A  2301   	fcall	i1_sagdon
+              120A  118A         
+  2011                           	line	295
+  2012                           ;main.c: 295: }
+  2013  0126  299F               	goto	i1l578
+  2014                           	line	296
+  2015                           	
+  2016  0127                     i1l598:	
+  2017                           ;main.c: 296: else if (RB0 == 0 && RC6 == 1 && RB4 == 1 && RB1 == 1 && RC7 ==1){
+  2018  0127  1806               	btfsc	(48/8),(48)&7
+  2019  0128  292A               	goto	u294_21
+  2020  0129  292B               	goto	u294_20
+  2021  012A                     u294_21:
+  2022  012A  294F               	goto	i1l600
+  2023  012B                     u294_20:
+  2024                           	
+  2025  012B                     i1l2202:	
+  2026  012B  1F07               	btfss	(62/8),(62)&7
+  2027  012C  292E               	goto	u295_21
+  2028  012D  292F               	goto	u295_20
+  2029  012E                     u295_21:
+  2030  012E  294F               	goto	i1l600
+  2031  012F                     u295_20:
+  2032                           	
+  2033  012F                     i1l2204:	
+  2034  012F  1E06               	btfss	(52/8),(52)&7
+  2035  0130  2932               	goto	u296_21
+  2036  0131  2933               	goto	u296_20
+  2037  0132                     u296_21:
+  2038  0132  294F               	goto	i1l600
+  2039  0133                     u296_20:
+  2040                           	
+  2041  0133                     i1l2206:	
+  2042  0133  1C86               	btfss	(49/8),(49)&7
+  2043  0134  2936               	goto	u297_21
+  2044  0135  2937               	goto	u297_20
+  2045  0136                     u297_21:
+  2046  0136  294F               	goto	i1l600
+  2047  0137                     u297_20:
+  2048                           	
+  2049  0137                     i1l2208:	
+  2050  0137  1F87               	btfss	(63/8),(63)&7
+  2051  0138  293A               	goto	u298_21
+  2052  0139  293B               	goto	u298_20
+  2053  013A                     u298_21:
+  2054  013A  294F               	goto	i1l600
+  2055  013B                     u298_20:
+  2056                           	line	297
+  2057                           	
+  2058  013B                     i1l2210:	
+  2059                           ;main.c: 297: set_pwm(255,255);
+  2060  013B  30FF               	movlw	(0FFh)
+  2061  013C  00F2               	movwf	(??_timer_func+0)+0
+  2062  013D  0872               	movf	(??_timer_func+0)+0,w
+  2063  013E  00F0               	movwf	(?i1_set_pwm)
+  2064  013F  30FF               	movlw	(0FFh)
+  2065  0140  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  2066                           	line	298
+  2067                           	
+  2068  0145                     i1l2212:	
+  2069                           ;main.c: 298: ileri();
+  2070  0145  120A  118A  2308   	fcall	i1_ileri
+              120A  118A         
+  2071                           	line	299
+  2072                           	
+  2073  014A                     i1l2214:	
+  2074                           ;main.c: 299: RC3 = 1;
+  2075  014A  1283               	bcf	status, 5	;RP0=0, select bank0
+  2076  014B  1303               	bcf	status, 6	;RP1=0, select bank0
+  2077  014C  1587               	bsf	(59/8),(59)&7
+  2078                           	line	300
+  2079                           	
+  2080  014D                     i1l2216:	
+  2081                           ;main.c: 300: RC0 = 1;
+  2082  014D  1407               	bsf	(56/8),(56)&7
+  2083                           	line	301
+  2084                           ;main.c: 301: }
+  2085  014E  299F               	goto	i1l578
+  2086                           	line	302
+  2087                           	
+  2088  014F                     i1l600:	
+  2089                           ;main.c: 302: else if ((RC6 == 0 || 1 == 0) && RB4 == 1 && RB0 == 1 && 1 == 1){
+  2090  014F  1F07               	btfss	(62/8),(62)&7
+  2091  0150  2952               	goto	u299_21
+  2092  0151  2953               	goto	u299_20
+  2093  0152                     u299_21:
+  2094  0152  2955               	goto	i1l604
+  2095  0153                     u299_20:
+  2096  0153  2971               	goto	i1l602
+  2097                           	
+  2098  0154                     i1l2218:	
+  2099  0154  2971               	goto	i1l602
+  2100                           	
+  2101  0155                     i1l604:	
+  2102  0155  1E06               	btfss	(52/8),(52)&7
+  2103  0156  2958               	goto	u300_21
+  2104  0157  2959               	goto	u300_20
+  2105  0158                     u300_21:
+  2106  0158  2971               	goto	i1l602
+  2107  0159                     u300_20:
+  2108                           	
+  2109  0159                     i1l2220:	
+  2110  0159  1C06               	btfss	(48/8),(48)&7
+  2111  015A  295C               	goto	u301_21
+  2112  015B  295D               	goto	u301_20
+  2113  015C                     u301_21:
+  2114  015C  2971               	goto	i1l602
+  2115  015D                     u301_20:
+  2116                           	line	303
+  2117                           	
+  2118  015D                     i1l2222:	
+  2119                           ;main.c: 303: set_pwm(200,200);
+  2120  015D  30C8               	movlw	(0C8h)
+  2121  015E  00F2               	movwf	(??_timer_func+0)+0
+  2122  015F  0872               	movf	(??_timer_func+0)+0,w
+  2123  0160  00F0               	movwf	(?i1_set_pwm)
+  2124  0161  30C8               	movlw	(0C8h)
+  2125  0162  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  2126                           	line	304
+  2127                           	
+  2128  0167                     i1l2224:	
+  2129                           ;main.c: 304: sagdon();
+  2130  0167  120A  118A  2301   	fcall	i1_sagdon
+              120A  118A         
+  2131                           	line	305
+  2132                           	
+  2133  016C                     i1l2226:	
+  2134                           ;main.c: 305: RC3 = 1;
+  2135  016C  1283               	bcf	status, 5	;RP0=0, select bank0
+  2136  016D  1303               	bcf	status, 6	;RP1=0, select bank0
+  2137  016E  1587               	bsf	(59/8),(59)&7
+  2138                           	line	306
+  2139                           	
+  2140  016F                     i1l2228:	
+  2141                           ;main.c: 306: RC0 = 0;
+  2142  016F  1007               	bcf	(56/8),(56)&7
+  2143                           	line	307
+  2144                           ;main.c: 307: }
+  2145  0170  299F               	goto	i1l578
+  2146                           	line	308
+  2147                           	
+  2148  0171                     i1l602:	
+  2149                           ;main.c: 308: else if ((RB4 == 0 || 1 == 0) && RC6 == 1 && RB0 == 1 && 1 == 1){
+  2150  0171  1E06               	btfss	(52/8),(52)&7
+  2151  0172  2974               	goto	u302_21
+  2152  0173  2975               	goto	u302_20
+  2153  0174                     u302_21:
+  2154  0174  2977               	goto	i1l608
+  2155  0175                     u302_20:
+  2156  0175  299F               	goto	i1l578
+  2157                           	
+  2158  0176                     i1l2230:	
+  2159  0176  299F               	goto	i1l578
+  2160                           	
+  2161  0177                     i1l608:	
+  2162  0177  1F07               	btfss	(62/8),(62)&7
+  2163  0178  297A               	goto	u303_21
+  2164  0179  297B               	goto	u303_20
+  2165  017A                     u303_21:
+  2166  017A  299F               	goto	i1l578
+  2167  017B                     u303_20:
+  2168                           	
+  2169  017B                     i1l2232:	
+  2170  017B  1C06               	btfss	(48/8),(48)&7
+  2171  017C  297E               	goto	u304_21
+  2172  017D  297F               	goto	u304_20
+  2173  017E                     u304_21:
+  2174  017E  299F               	goto	i1l578
+  2175  017F                     u304_20:
+  2176                           	line	309
+  2177                           	
+  2178  017F                     i1l2234:	
+  2179                           ;main.c: 309: set_pwm(200,200);
+  2180  017F  30C8               	movlw	(0C8h)
+  2181  0180  00F2               	movwf	(??_timer_func+0)+0
+  2182  0181  0872               	movf	(??_timer_func+0)+0,w
+  2183  0182  00F0               	movwf	(?i1_set_pwm)
+  2184  0183  30C8               	movlw	(0C8h)
+  2185  0184  120A  118A  22D6   	fcall	i1_set_pwm
+              120A  118A         
+  2186                           	line	310
+  2187                           	
+  2188  0189                     i1l2236:	
+  2189                           ;main.c: 310: soldon();
+  2190  0189  120A  118A  22FA   	fcall	i1_soldon
+              120A  118A         
+  2191                           	line	311
+  2192                           	
+  2193  018E                     i1l2238:	
+  2194                           ;main.c: 311: RC0 = 1;
+  2195  018E  1283               	bcf	status, 5	;RP0=0, select bank0
+  2196  018F  1303               	bcf	status, 6	;RP1=0, select bank0
+  2197  0190  1407               	bsf	(56/8),(56)&7
+  2198                           	line	312
+  2199                           	
+  2200  0191                     i1l2240:	
+  2201                           ;main.c: 312: RC3 = 0;
+  2202  0191  1187               	bcf	(59/8),(59)&7
+  2203  0192  299F               	goto	i1l578
+  2204                           	line	313
+  2205                           	
+  2206  0193                     i1l606:	
+  2207  0193  299F               	goto	i1l578
+  2208                           	line	314
+  2209                           	
+  2210  0194                     i1l605:	
+  2211  0194  299F               	goto	i1l578
+  2212                           	
+  2213  0195                     i1l601:	
+  2214  0195  299F               	goto	i1l578
+  2215                           	
+  2216  0196                     i1l599:	
+  2217  0196  299F               	goto	i1l578
+  2218                           	
+  2219  0197                     i1l597:	
+  2220  0197  299F               	goto	i1l578
+  2221                           	
+  2222  0198                     i1l595:	
+  2223  0198  299F               	goto	i1l578
+  2224                           	
+  2225  0199                     i1l593:	
+  2226  0199  299F               	goto	i1l578
+  2227                           	
+  2228  019A                     i1l591:	
+  2229  019A  299F               	goto	i1l578
+  2230                           	
+  2231  019B                     i1l589:	
+  2232  019B  299F               	goto	i1l578
+  2233                           	
+  2234  019C                     i1l587:	
+  2235  019C  299F               	goto	i1l578
+  2236                           	
+  2237  019D                     i1l585:	
+  2238  019D  299F               	goto	i1l578
+  2239                           	
+  2240  019E                     i1l583:	
+  2241  019E  299F               	goto	i1l578
+  2242                           	
+  2243  019F                     i1l579:	
+  2244                           	line	315
+  2245                           	
+  2246  019F                     i1l578:	
+  2247                           ;main.c: 313: }
+  2248                           ;main.c: 314: }
+  2249                           ;main.c: 315: TMR0=55;
+  2250  019F  3037               	movlw	(037h)
+  2251  01A0  1283               	bcf	status, 5	;RP0=0, select bank0
+  2252  01A1  1303               	bcf	status, 6	;RP1=0, select bank0
+  2253  01A2  0081               	movwf	(1)	;volatile
+  2254                           	line	316
+  2255                           	
+  2256  01A3                     i1l2242:	
+  2257                           ;main.c: 316: TMR0IF=0;
+  2258  01A3  110B               	bcf	(90/8),(90)&7
+  2259  01A4  29A5               	goto	i1l609
+  2260                           	line	317
+  2261                           	
+  2262  01A5                     i1l572:	
+  2263                           	line	318
+  2264                           	
+  2265  01A5                     i1l609:	
+  2266  01A5  0876               	movf	(??_timer_func+4),w
+  2267  01A6  00FF               	movwf	btemp+1
+  2268  01A7  0875               	movf	(??_timer_func+3),w
+  2269  01A8  008A               	movwf	pclath
+  2270  01A9  0874               	movf	(??_timer_func+2),w
+  2271  01AA  0084               	movwf	fsr0
+  2272  01AB  0873               	movf	(??_timer_func+1),w
+  2273  01AC  0083               	movwf	status
+  2274  01AD  0EFE               	swapf	saved_w,f
+  2275  01AE  0E7E               	swapf	saved_w,w
+  2276  01AF  0009               	retfie
+  2277                           	opt stack 0
+  2278                           GLOBAL	__end_of_timer_func
+  2279  01B0                     	__end_of_timer_func:
+  2280 ;; =============== function _timer_func ends ============
+  2281                           
+  2282                           	signat	_timer_func,88
+  2283                           	global	i1_soldon
+  2284                           psect	text532,local,class=CODE,delta=2
+  2285                           global __ptext532
+  2286  02FA                     __ptext532:
+  2287                           
+  2288 ;; *************** function i1_soldon *****************
+  2289 ;; Defined at:
+  2290 ;;		line 140 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  2291 ;; Parameters:    Size  Location     Type
+  2292 ;;		None
+  2293 ;; Auto vars:     Size  Location     Type
+  2294 ;;		None
+  2295 ;; Return value:  Size  Location     Type
+  2296 ;;		None               void
+  2297 ;; Registers used:
+  2298 ;;		None
+  2299 ;; Tracked objects:
+  2300 ;;		On entry : 0/0
+  2301 ;;		On exit  : 0/0
+  2302 ;;		Unchanged: 0/0
+  2303 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  2304 ;;      Params:         0       0       0       0       0
+  2305 ;;      Locals:         0       0       0       0       0
+  2306 ;;      Temps:          0       0       0       0       0
+  2307 ;;      Totals:         0       0       0       0       0
+  2308 ;;Total ram usage:        0 bytes
+  2309 ;; Hardware stack levels used:    1
+  2310 ;; This function calls:
+  2311 ;;		Nothing
+  2312 ;; This function is called by:
+  2313 ;;		_timer_func
+  2314 ;; This function uses a non-reentrant model
+  2315 ;;
+  2316                           psect	text532
+  2317                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  2318                           	line	140
+  2319                           	global	__size_ofi1_soldon
+  2320  0007                     	__size_ofi1_soldon	equ	__end_ofi1_soldon-i1_soldon
+  2321                           	
+  2322  02FA                     i1_soldon:	
+  2323                           	opt	stack 5
+  2324                           ; Regs used in i1_soldon: []
+  2325                           	line	141
+  2326                           	
+  2327  02FA                     i1l1984:	
+  2328                           ;main.c: 141: RB2 = 1;
+  2329  02FA  1283               	bcf	status, 5	;RP0=0, select bank0
+  2330  02FB  1303               	bcf	status, 6	;RP1=0, select bank0
+  2331  02FC  1506               	bsf	(50/8),(50)&7
+  2332                           	line	142
+  2333                           ;main.c: 142: RB3 = 0;
+  2334  02FD  1186               	bcf	(51/8),(51)&7
+  2335                           	line	143
+  2336                           ;main.c: 143: RC4 = 0;
+  2337  02FE  1207               	bcf	(60/8),(60)&7
+  2338                           	line	144
+  2339                           ;main.c: 144: RC5 = 1;
+  2340  02FF  1687               	bsf	(61/8),(61)&7
+  2341                           	line	145
+  2342                           	
+  2343  0300                     i1l526:	
+  2344  0300  0008               	return
+  2345                           	opt stack 0
+  2346                           GLOBAL	__end_ofi1_soldon
+  2347  0301                     	__end_ofi1_soldon:
+  2348 ;; =============== function i1_soldon ends ============
+  2349                           
+  2350                           	signat	i1_soldon,88
+  2351                           	global	i1_sagdon
+  2352                           psect	text533,local,class=CODE,delta=2
+  2353                           global __ptext533
+  2354  0301                     __ptext533:
+  2355                           
+  2356 ;; *************** function i1_sagdon *****************
+  2357 ;; Defined at:
+  2358 ;;		line 133 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  2359 ;; Parameters:    Size  Location     Type
+  2360 ;;		None
+  2361 ;; Auto vars:     Size  Location     Type
+  2362 ;;		None
+  2363 ;; Return value:  Size  Location     Type
+  2364 ;;		None               void
+  2365 ;; Registers used:
+  2366 ;;		None
+  2367 ;; Tracked objects:
+  2368 ;;		On entry : 0/0
+  2369 ;;		On exit  : 0/0
+  2370 ;;		Unchanged: 0/0
+  2371 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  2372 ;;      Params:         0       0       0       0       0
+  2373 ;;      Locals:         0       0       0       0       0
+  2374 ;;      Temps:          0       0       0       0       0
+  2375 ;;      Totals:         0       0       0       0       0
+  2376 ;;Total ram usage:        0 bytes
+  2377 ;; Hardware stack levels used:    1
+  2378 ;; This function calls:
+  2379 ;;		Nothing
+  2380 ;; This function is called by:
+  2381 ;;		_timer_func
+  2382 ;; This function uses a non-reentrant model
+  2383 ;;
+  2384                           psect	text533
+  2385                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  2386                           	line	133
+  2387                           	global	__size_ofi1_sagdon
+  2388  0007                     	__size_ofi1_sagdon	equ	__end_ofi1_sagdon-i1_sagdon
+  2389                           	
+  2390  0301                     i1_sagdon:	
+  2391                           	opt	stack 5
+  2392                           ; Regs used in i1_sagdon: []
+  2393                           	line	134
+  2394                           	
+  2395  0301                     i1l1980:	
+  2396                           ;main.c: 134: RB2 = 0;
+  2397  0301  1283               	bcf	status, 5	;RP0=0, select bank0
+  2398  0302  1303               	bcf	status, 6	;RP1=0, select bank0
+  2399  0303  1106               	bcf	(50/8),(50)&7
+  2400                           	line	135
+  2401                           ;main.c: 135: RB3 = 1;
+  2402  0304  1586               	bsf	(51/8),(51)&7
+  2403                           	line	136
+  2404                           ;main.c: 136: RC4 = 1;
+  2405  0305  1607               	bsf	(60/8),(60)&7
+  2406                           	line	137
+  2407                           ;main.c: 137: RC5 = 0;
+  2408  0306  1287               	bcf	(61/8),(61)&7
+  2409                           	line	138
+  2410                           	
+  2411  0307                     i1l523:	
+  2412  0307  0008               	return
+  2413                           	opt stack 0
+  2414                           GLOBAL	__end_ofi1_sagdon
+  2415  0308                     	__end_ofi1_sagdon:
+  2416 ;; =============== function i1_sagdon ends ============
+  2417                           
+  2418                           	signat	i1_sagdon,88
+  2419                           	global	i1_ileri
+  2420                           psect	text534,local,class=CODE,delta=2
+  2421                           global __ptext534
+  2422  0308                     __ptext534:
+  2423                           
+  2424 ;; *************** function i1_ileri *****************
+  2425 ;; Defined at:
+  2426 ;;		line 119 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  2427 ;; Parameters:    Size  Location     Type
+  2428 ;;		None
+  2429 ;; Auto vars:     Size  Location     Type
+  2430 ;;		None
+  2431 ;; Return value:  Size  Location     Type
+  2432 ;;		None               void
+  2433 ;; Registers used:
+  2434 ;;		None
+  2435 ;; Tracked objects:
+  2436 ;;		On entry : 0/0
+  2437 ;;		On exit  : 0/0
+  2438 ;;		Unchanged: 0/0
+  2439 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  2440 ;;      Params:         0       0       0       0       0
+  2441 ;;      Locals:         0       0       0       0       0
+  2442 ;;      Temps:          0       0       0       0       0
+  2443 ;;      Totals:         0       0       0       0       0
+  2444 ;;Total ram usage:        0 bytes
+  2445 ;; Hardware stack levels used:    1
+  2446 ;; This function calls:
+  2447 ;;		Nothing
+  2448 ;; This function is called by:
+  2449 ;;		_timer_func
+  2450 ;; This function uses a non-reentrant model
+  2451 ;;
+  2452                           psect	text534
+  2453                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  2454                           	line	119
+  2455                           	global	__size_ofi1_ileri
+  2456  0007                     	__size_ofi1_ileri	equ	__end_ofi1_ileri-i1_ileri
+  2457                           	
+  2458  0308                     i1_ileri:	
+  2459                           	opt	stack 5
+  2460                           ; Regs used in i1_ileri: []
+  2461                           	line	120
+  2462                           	
+  2463  0308                     i1l1976:	
+  2464                           ;main.c: 120: RB2 = 0;
+  2465  0308  1283               	bcf	status, 5	;RP0=0, select bank0
+  2466  0309  1303               	bcf	status, 6	;RP1=0, select bank0
+  2467  030A  1106               	bcf	(50/8),(50)&7
+  2468                           	line	121
+  2469                           ;main.c: 121: RB3 = 1;
+  2470  030B  1586               	bsf	(51/8),(51)&7
+  2471                           	line	122
+  2472                           ;main.c: 122: RC4 = 0;
+  2473  030C  1207               	bcf	(60/8),(60)&7
+  2474                           	line	123
+  2475                           ;main.c: 123: RC5 = 1;
+  2476  030D  1687               	bsf	(61/8),(61)&7
+  2477                           	line	124
+  2478                           	
+  2479  030E                     i1l517:	
+  2480  030E  0008               	return
+  2481                           	opt stack 0
+  2482                           GLOBAL	__end_ofi1_ileri
+  2483  030F                     	__end_ofi1_ileri:
+  2484 ;; =============== function i1_ileri ends ============
+  2485                           
+  2486                           	signat	i1_ileri,88
+  2487                           	global	i1_set_pwm
+  2488                           psect	text535,local,class=CODE,delta=2
+  2489                           global __ptext535
+  2490  02D6                     __ptext535:
+  2491                           
+  2492 ;; *************** function i1_set_pwm *****************
+  2493 ;; Defined at:
+  2494 ;;		line 74 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  2495 ;; Parameters:    Size  Location     Type
+  2496 ;;  set_pwm         1    wreg     unsigned char 
+  2497 ;;  set_pwm         1    0[COMMON] unsigned char 
+  2498 ;; Auto vars:     Size  Location     Type
+  2499 ;;  set_pwm         1    1[COMMON] unsigned char 
+  2500 ;; Return value:  Size  Location     Type
+  2501 ;;		None               void
+  2502 ;; Registers used:
+  2503 ;;		wreg
+  2504 ;; Tracked objects:
+  2505 ;;		On entry : 0/0
+  2506 ;;		On exit  : 0/0
+  2507 ;;		Unchanged: 0/0
+  2508 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  2509 ;;      Params:         1       0       0       0       0
+  2510 ;;      Locals:         1       0       0       0       0
+  2511 ;;      Temps:          0       0       0       0       0
+  2512 ;;      Totals:         2       0       0       0       0
+  2513 ;;Total ram usage:        2 bytes
+  2514 ;; Hardware stack levels used:    1
+  2515 ;; This function calls:
+  2516 ;;		Nothing
+  2517 ;; This function is called by:
+  2518 ;;		_timer_func
+  2519 ;; This function uses a non-reentrant model
+  2520 ;;
+  2521                           psect	text535
+  2522                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  2523                           	line	74
+  2524                           	global	__size_ofi1_set_pwm
+  2525  0008                     	__size_ofi1_set_pwm	equ	__end_ofi1_set_pwm-i1_set_pwm
+  2526                           	
+  2527  02D6                     i1_set_pwm:	
+  2528                           	opt	stack 5
+  2529                           ; Regs used in i1_set_pwm: [wreg]
+  2530                           ;i1set_pwm@motor1_pwm stored from wreg
+  2531  02D6  00F1               	movwf	(i1set_pwm@motor1_pwm)
+  2532                           	line	75
+  2533                           	
+  2534  02D7                     i1l2244:	
+  2535                           ;main.c: 75: CCPR1L = motor2_pwm;
+  2536  02D7  0870               	movf	(i1set_pwm@motor2_pwm),w
+  2537  02D8  1283               	bcf	status, 5	;RP0=0, select bank0
+  2538  02D9  1303               	bcf	status, 6	;RP1=0, select bank0
+  2539  02DA  0095               	movwf	(21)	;volatile
+  2540                           	line	76
+  2541                           ;main.c: 76: CCPR2L = motor1_pwm;
+  2542  02DB  0871               	movf	(i1set_pwm@motor1_pwm),w
+  2543  02DC  009B               	movwf	(27)	;volatile
+  2544                           	line	77
+  2545                           	
+  2546  02DD                     i1l511:	
+  2547  02DD  0008               	return
+  2548                           	opt stack 0
+  2549                           GLOBAL	__end_ofi1_set_pwm
+  2550  02DE                     	__end_ofi1_set_pwm:
+  2551 ;; =============== function i1_set_pwm ends ============
+  2552                           
+  2553                           	signat	i1_set_pwm,88
+  2554                           	global	_geri
+  2555                           psect	text536,local,class=CODE,delta=2
+  2556                           global __ptext536
+  2557  030F                     __ptext536:
+  2558                           
+  2559 ;; *************** function _geri *****************
+  2560 ;; Defined at:
+  2561 ;;		line 126 in file "C:\Users\shock-mini\Desktop\hammer\main.c"
+  2562 ;; Parameters:    Size  Location     Type
+  2563 ;;		None
+  2564 ;; Auto vars:     Size  Location     Type
+  2565 ;;		None
+  2566 ;; Return value:  Size  Location     Type
+  2567 ;;		None               void
+  2568 ;; Registers used:
+  2569 ;;		None
+  2570 ;; Tracked objects:
+  2571 ;;		On entry : 0/0
+  2572 ;;		On exit  : 0/0
+  2573 ;;		Unchanged: 0/0
+  2574 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  2575 ;;      Params:         0       0       0       0       0
+  2576 ;;      Locals:         0       0       0       0       0
+  2577 ;;      Temps:          0       0       0       0       0
+  2578 ;;      Totals:         0       0       0       0       0
+  2579 ;;Total ram usage:        0 bytes
+  2580 ;; Hardware stack levels used:    1
+  2581 ;; This function calls:
+  2582 ;;		Nothing
+  2583 ;; This function is called by:
+  2584 ;;		_timer_func
+  2585 ;; This function uses a non-reentrant model
+  2586 ;;
+  2587                           psect	text536
+  2588                           	file	"C:\Users\shock-mini\Desktop\hammer\main.c"
+  2589                           	line	126
+  2590                           	global	__size_of_geri
+  2591  0007                     	__size_of_geri	equ	__end_of_geri-_geri
+  2592                           	
+  2593  030F                     _geri:	
+  2594                           	opt	stack 5
+  2595                           ; Regs used in _geri: []
+  2596                           	line	127
+  2597                           	
+  2598  030F                     i1l1012:	
+  2599                           ;main.c: 127: RB2 = 1;
+  2600  030F  1283               	bcf	status, 5	;RP0=0, select bank0
+  2601  0310  1303               	bcf	status, 6	;RP1=0, select bank0
+  2602  0311  1506               	bsf	(50/8),(50)&7
+  2603                           	line	128
+  2604                           ;main.c: 128: RB3 = 0;
+  2605  0312  1186               	bcf	(51/8),(51)&7
+  2606                           	line	129
+  2607                           ;main.c: 129: RC4 = 1;
+  2608  0313  1607               	bsf	(60/8),(60)&7
+  2609                           	line	130
+  2610                           ;main.c: 130: RC5 = 0;
+  2611  0314  1287               	bcf	(61/8),(61)&7
+  2612                           	line	131
+  2613                           	
+  2614  0315                     i1l520:	
+  2615  0315  0008               	return
+  2616                           	opt stack 0
+  2617                           GLOBAL	__end_of_geri
+  2618  0316                     	__end_of_geri:
+  2619 ;; =============== function _geri ends ============
+  2620                           
+  2621                           	signat	_geri,88
+  2622                           psect	text537,local,class=CODE,delta=2
+  2623                           global __ptext537
+  2624  0000                     __ptext537:
+  2625                           	global	btemp
+  2626  007E                     	btemp set 07Eh
+  2627                           
+  2628                           	DABS	1,126,2	;btemp
+  2629                           	global	wtemp0
+  2630  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Fri Apr 12 15:22:37 2013
+
+   set_pwm@motor1_pwm 0021     set_pwm@motor2_pwm 0020                   l511 02D5                   l505 02A7  
+                 l514 02BE                   l523 02F2                   l508 02CD                   l517 02F9  
+                 l526 02EB                   l550 01D2                   l551 01E0                   l560 0229  
+                 l552 01EA                   l553 01EA                   l562 0226                   l554 01F7  
+                 l546 01C8                   l563 0261                   l555 0234                   l547 01C8  
+                 l564 0284                   l556 021A                   l565 0283                   l549 01D1  
+                 l566 028C                   l558 0217                   l567 028C                   l559 022A  
+                 l568 028D                   l569 028D                   _GIE 005F                   _RA0 0028  
+                 _RB0 0030                   _RB1 0031                   _RC0 0038                   _RB2 0032  
+                 _RB3 0033                   _RB4 0034                   _RC3 003B                   _RB5 0035  
+                 _RC4 003C                   _RC5 003D                   _RC6 003E                   _RC7 003F  
+                 _PS0 0408                   _PR2 0092                   _PS1 0409                   _PS2 040A  
+                 _PSA 040B                   fsr0 0004                  l2310 0290                  l2312 0296  
+                l2320 02BF                  l2400 0240                  l2314 0299                  l2330 02C9  
+                l2322 02C3                  l2410 0269                  l2402 0247                  l2316 02A0  
+                l2332 02CA                  l2324 02C6                  l2340 02A8                  l2420 028A  
+                l2412 026E                  l2404 024C                  l2318 02A4                  l2334 02CB  
+                l2326 02C7                  l2342 02F3                  l2414 027D                  l2406 025B  
+                l2336 02CC                  l2328 02C8                  l2344 02EC                  l2416 0284  
+                l2408 0261                  l2360 01BF                  l2338 02D1                  l2346 02E5  
+                l2418 0287                  l2370 01D6                  l2362 01C2                  l2380 01EF  
+                l2372 01D7                  l2364 01C3                  l2390 021A                  l2382 01F6  
+                l2374 01D8                  l2366 01CC                  l2358 01B0                  l2392 0220  
+                l2384 01F7                  l2376 01DC                  l2368 01D2                  l2394 022A  
+                l2386 020B                  l2378 01E4                  l2396 022E                  l2388 0211  
+                l2398 0236                  _T0IE 005D                  _T0IF 005A                  _T0CS 040D  
+                u3200 01DC                  u3201 01DB                  u3210 01E4                  u3211 01E3  
+                u3300 0269                  u3220 01F5                  u3301 0268                  u3221 01F4  
+                u3230 020B                  u3231 020A                  u3240 0211                  u3241 0210  
+                u3250 0217                  u3251 0216                  u3260 0220                  u3180 01CC  
+                u3261 021F                  u3317 01FD                  u3181 01CB                  u3270 0226  
+                u3190 01D0                  u3327 0254                  u3271 0225                  u3191 01CF  
+                u3280 0234                  u3337 0276                  u3281 0233                  u3290 0247  
+                u3291 0246                  _TMR0 0001                  _geri 030F                  _main 01B0  
+                _init 0290                  btemp 007E                  start 0012       __end_ofi1_ileri 030F  
+               ?_geri 0070                 ?_main 0070                 ?_init 0070                 _T1CON 0010  
+               _T2CON 0012                 i1l511 02DD                 i1l520 0315                 i1l600 014F  
+               i1l601 0195                 i1l602 0171                 i1l523 0307                 i1l604 0155  
+               i1l517 030E                 i1l605 0194                 i1l526 0300                 i1l606 0193  
+               i1l608 0177                 i1l609 01A5                 i1l572 01A5                 i1l580 0057  
+               i1l573 0038                 i1l590 00C3                 i1l582 0047                 i1l574 0035  
+               i1l583 019E                 i1l591 019A                 i1l592 00DD                 i1l584 0073  
+               i1l576 0033                 i1l585 019D                 i1l593 0199                 i1l577 0037  
+               i1l594 00F7                 i1l586 008F                 i1l578 019F                 i1l579 019F  
+               i1l587 019C                 i1l595 0198                 i1l596 010F                 i1l588 00AB  
+               i1l589 019B                 i1l597 0197                 i1l598 0127                 i1l599 0196  
+               _PORTA 0005                 _PORTB 0006                 _PORTC 0007                 _TRISA 0085  
+               _TRISB 0086                 _TRISC 0087                 _ileri 02F3                 main@i 0025  
+               pclath 000A       __end_of_set_pwm 02D6                 status 0003                 wtemp0 007E  
+    __end_ofi1_sagdon 0308      __end_ofi1_soldon 0301          __end_of_geri 0316          __end_of_main 0290  
+        __end_of_init 02A8    __size_ofi1_set_pwm 0008                ??_geri 0070                ??_main 0022  
+              ??_init 0020                _ADCON1 009F                ?_ileri 0070                _CCPR1L 0015  
+              _CCPR2L 001B                i1l1012 030F                i1l2100 0019                i1l2110 002F  
+              i1l2102 001F                i1l2200 0121                i1l2120 0051                i1l2104 0023  
+              i1l2112 0038                i1l2210 013B                i1l2202 012B                i1l2130 0077  
+              i1l2122 005B                i1l2114 003E                i1l2106 0027                i1l2220 0159  
+              i1l2212 0145                i1l2204 012F                i1l2140 0097                i1l2132 007B  
+              i1l2124 005F                i1l2116 0042                i1l2108 002B                i1l2230 0176  
+              i1l2222 015D                i1l2214 014A                i1l2206 0133                i1l2150 00AE  
+              i1l2142 009B                i1l2134 007F                i1l2126 0063                i1l2118 0047  
+              i1l2240 0191                i1l2232 017B                i1l2224 0167                i1l2216 014D  
+              i1l2208 0137                i1l2160 00C5                i1l2152 00AF                i1l2144 00A5  
+              i1l2136 0089                i1l2128 006D                i1l2242 01A3                i1l2234 017F  
+              i1l2226 016C                i1l2218 0154                i1l2170 00E2                i1l2162 00C9  
+              i1l2154 00B3                i1l2146 00AC                i1l2138 0093                i1l2244 02D7  
+              i1l2236 0189                i1l2228 016F                i1l2180 00F9                i1l2172 00E3  
+              i1l2164 00CD                i1l2156 00BD                i1l2148 00AD                i1l2238 018E  
+              i1l2190 0110                i1l2182 00FA                i1l2174 00E7                i1l2166 00D7  
+              i1l2158 00C4                i1l2192 0111                i1l2184 00FB                i1l2176 00F1  
+              i1l2168 00E1                i1l2194 0112                i1l2186 00FF                i1l2178 00F8  
+              i1l2098 0015                i1l2196 0113                i1l2188 0109                i1l2198 0117  
+           ??i1_ileri 0070                i1l1980 0301                i1l1976 0308                i1l1984 02FA  
+              u300_20 0159                u300_21 0158                u301_20 015D                u301_21 015C  
+              u302_20 0175                u302_21 0174                u303_20 017B                u303_21 017A  
+              u304_20 017F                u304_21 017E                u270_20 0023                u270_21 0022  
+              u271_20 0027                u271_21 0026                u280_20 0063                u272_20 002B  
+              u280_21 0062                u272_21 002A                u281_20 0077                u273_20 002F  
+              u281_21 0076                u273_21 002E                u290_20 00E1                u282_20 007B  
+              u274_20 0033                u290_21 00E0                u282_21 007A                u274_21 0032  
+              u291_20 00E7                u283_20 007F                u275_20 003E                u291_21 00E6  
+              u283_21 007E                u275_21 003D                u292_20 00FF                u284_20 0093  
+              u276_20 0042                u268_20 0019                u292_21 00FE                u284_21 0092  
+              u276_21 0041                u268_21 0018                u293_20 0117                u285_20 0097  
+              u277_20 0046                u269_20 001F                u293_21 0116                u285_21 0096  
+              u277_21 0045                u269_21 001E                u294_20 012B                u286_20 009B  
+              u278_20 005B                u294_21 012A                u286_21 009A                u278_21 005A  
+              u295_20 012F                u287_20 00B3                u279_20 005F                u295_21 012E  
+              u287_21 00B2                u279_21 005E                u296_20 0133                u288_20 00C9  
+              u296_21 0132                u288_21 00C8                u297_20 0137                u289_20 00CD  
+              u297_21 0136                u289_21 00CC                u298_20 013B                u298_21 013A  
+              u299_20 0153                u299_21 0152                _TMR0IF 005A                _OPTION 0081  
+              _sagdon 02EC                _mymode 0079                _soldon 02E5                saved_w 007E  
+           ??_set_pwm 0021      __end_of_pwm_init 02BF     __end_ofi1_set_pwm 02DE        __pcstackCOMMON 0070  
+       __end_of_ileri 02FA             ?i1_sagdon 0070             ?i1_soldon 0070               ??_ileri 0020  
+          __pbssBANK0 0026            __pnvCOMMON 0079            __pmaintext 01B0            __pintentry 0004  
+             _CCP1CON 0017               _CCP2CON 001D               ?_sagdon 0070               ?_soldon 0070  
+          ??i1_sagdon 0070            ??i1_soldon 0070   i1set_pwm@motor1_pwm 0071   i1set_pwm@motor2_pwm 0070  
+             i1_ileri 0308             ?_pwm_init 0070       __size_of_sagdon 0007       __size_of_soldon 0007  
+             _set_pwm 02CE  end_of_initialization 02E1            ??_pwm_init 0020            _timer_func 0015  
+          _timer_init 02BF             i1_set_pwm 02D6        __end_of_sagdon 02F3        __end_of_soldon 02EC  
+ start_initialization 02DE     __size_ofi1_sagdon 0007     __size_ofi1_soldon 0007            ?i1_set_pwm 0070  
+            ??_sagdon 0020           ?_timer_func 0070           ?_timer_init 0070              ??_soldon 0020  
+         __pbssCOMMON 0077         __pcstackBANK0 0020              ?i1_ileri 0070          _currentstate 0077  
+           __ptext530 0290             __ptext531 0015             __ptext532 02FA             __ptext524 02E5  
+           __ptext533 0301             __ptext525 02EC             __ptext534 0308             __ptext526 02F3  
+           __ptext535 02D6             __ptext527 02A8             __ptext536 030F             __ptext528 02CE  
+           __ptext537 0000             __ptext529 02BF     __size_of_pwm_init 0017              ?_set_pwm 0020  
+      __size_of_ileri 0007             _laststate 0078     interrupt_function 0004   __size_of_timer_func 019B  
+ __size_of_timer_init 000F           ??i1_set_pwm 0071              i1_sagdon 0301              i1_soldon 02FA  
+    __size_ofi1_ileri 0007      __size_of_set_pwm 0008         __size_of_geri 0007         __size_of_main 00E0  
+       __size_of_init 0018              _pwm_init 02A8              _startdir 0026          ??_timer_func 0072  
+        ??_timer_init 0020              intlevel1 0000    __end_of_timer_func 01B0    __end_of_timer_init 02CE  
