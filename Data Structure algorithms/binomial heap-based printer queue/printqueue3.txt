@@ -1,0 +1,95 @@
+[PRINT:   3 pages] ==> arrived:   10, started:   10, finished:   13, waiting:    0, userType:      STUDENT, currentQueue: []
+
+[PRINT:  29 pages] ==> arrived:   49, started:   49, finished:   78, waiting:    0, userType:    SECRETARY, currentQueue: []
+
+[PRINT:   5 pages] ==> arrived:   74, started:   78, finished:   83, waiting:    4, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=55, numberOfPages=9, userType=STUDENT }]
+
+[PRINT:   9 pages] ==> arrived:   55, started:   83, finished:   92, waiting:   28, userType:      STUDENT, currentQueue: []
+
+[PRINT:  10 pages] ==> arrived:  133, started:  133, finished:  143, waiting:    0, userType:      STUDENT, currentQueue: []
+
+[PRINT:   1 pages] ==> arrived:  138, started:  143, finished:  144, waiting:    5, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:   1 pages] ==> arrived:  154, started:  154, finished:  155, waiting:    0, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:   4 pages] ==> arrived:  165, started:  165, finished:  169, waiting:    0, userType:   INSTRUCTOR, currentQueue: []
+
+[PRINT:  12 pages] ==> arrived:  181, started:  181, finished:  193, waiting:    0, userType:    SECRETARY, currentQueue: []
+
+[PRINT:   1 pages] ==> arrived:  234, started:  234, finished:  235, waiting:    0, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:  20 pages] ==> arrived:  247, started:  247, finished:  267, waiting:    0, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:   8 pages] ==> arrived:  256, started:  267, finished:  275, waiting:   11, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=253, numberOfPages=12, userType=STUDENT }]
+
+[PRINT:  12 pages] ==> arrived:  253, started:  275, finished:  287, waiting:   22, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=268, numberOfPages=8, userType=ASSISTANT }]
+
+[PRINT:  24 pages] ==> arrived:  285, started:  287, finished:  311, waiting:    2, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=268, numberOfPages=8, userType=ASSISTANT }]
+
+[PRINT:   8 pages] ==> arrived:  268, started:  311, finished:  319, waiting:   43, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=302, numberOfPages=36, userType=ASSISTANT }]
+
+[PRINT:  20 pages] ==> arrived:  314, started:  319, finished:  339, waiting:    5, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=302, numberOfPages=36, userType=ASSISTANT }]
+
+[PRINT:  36 pages] ==> arrived:  302, started:  339, finished:  375, waiting:   37, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=324, numberOfPages=65, userType=STUDENT }]
+
+[PRINT:  65 pages] ==> arrived:  324, started:  375, finished:  440, waiting:   51, userType:      STUDENT, currentQueue: []
+
+[PRINT:   7 pages] ==> arrived:  380, started:  440, finished:  447, waiting:   60, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:  29 pages] ==> arrived:  458, started:  458, finished:  487, waiting:    0, userType:   INSTRUCTOR, currentQueue: []
+
+[PRINT:   5 pages] ==> arrived:  463, started:  487, finished:  492, waiting:   24, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=464, numberOfPages=7, userType=INSTRUCTOR }, PrintJob { arrivalTime=487, numberOfPages=1, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   7 pages] ==> arrived:  464, started:  492, finished:  499, waiting:   28, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=487, numberOfPages=1, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   3 pages] ==> arrived:  498, started:  499, finished:  502, waiting:    1, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=494, numberOfPages=6, userType=STUDENT }, PrintJob { arrivalTime=487, numberOfPages=1, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   6 pages] ==> arrived:  494, started:  502, finished:  508, waiting:    8, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=487, numberOfPages=1, userType=ASSISTANT }, PrintJob { arrivalTime=500, numberOfPages=36, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   1 pages] ==> arrived:  487, started:  508, finished:  509, waiting:   21, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=500, numberOfPages=36, userType=ASSISTANT }, PrintJob { arrivalTime=504, numberOfPages=55, userType=SECRETARY }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:  36 pages] ==> arrived:  500, started:  509, finished:  545, waiting:    9, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=504, numberOfPages=55, userType=SECRETARY }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:  55 pages] ==> arrived:  504, started:  545, finished:  600, waiting:   41, userType:    SECRETARY, currentQueue: [PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:   5 pages] ==> arrived:  591, started:  600, finished:  605, waiting:    9, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=580, numberOfPages=15, userType=STUDENT }, PrintJob { arrivalTime=574, numberOfPages=2, userType=INSTRUCTOR }, PrintJob { arrivalTime=590, numberOfPages=55, userType=STUDENT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:  15 pages] ==> arrived:  580, started:  605, finished:  620, waiting:   25, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=574, numberOfPages=2, userType=INSTRUCTOR }, PrintJob { arrivalTime=590, numberOfPages=55, userType=STUDENT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   2 pages] ==> arrived:  613, started:  620, finished:  622, waiting:    7, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=574, numberOfPages=2, userType=INSTRUCTOR }, PrintJob { arrivalTime=590, numberOfPages=55, userType=STUDENT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:   2 pages] ==> arrived:  574, started:  622, finished:  624, waiting:   48, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=590, numberOfPages=55, userType=STUDENT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:  55 pages] ==> arrived:  590, started:  624, finished:  679, waiting:   34, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   8 pages] ==> arrived:  650, started:  679, finished:  687, waiting:   29, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=658, numberOfPages=34, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:  34 pages] ==> arrived:  658, started:  687, finished:  721, waiting:   29, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:   4 pages] ==> arrived:  709, started:  721, finished:  725, waiting:   12, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=711, numberOfPages=6, userType=INSTRUCTOR }, PrintJob { arrivalTime=695, numberOfPages=2, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:   6 pages] ==> arrived:  711, started:  725, finished:  731, waiting:   14, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=695, numberOfPages=2, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:   2 pages] ==> arrived:  695, started:  731, finished:  733, waiting:   36, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=729, numberOfPages=12, userType=ASSISTANT }, PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+[PRINT:  12 pages] ==> arrived:  729, started:  733, finished:  745, waiting:    4, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=462, numberOfPages=65, userType=ASSISTANT }]
+
+[PRINT:  65 pages] ==> arrived:  462, started:  745, finished:  810, waiting:  283, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:  20 pages] ==> arrived:  754, started:  810, finished:  830, waiting:   56, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=748, numberOfPages=5, userType=ASSISTANT }, PrintJob { arrivalTime=762, numberOfPages=8, userType=ASSISTANT }]
+[PRINT:   1 pages] ==> arrived:  818, started:  830, finished:  831, waiting:   12, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=827, numberOfPages=3, userType=ASSISTANT }, PrintJob { arrivalTime=748, numberOfPages=5, userType=ASSISTANT }, PrintJob { arrivalTime=762, numberOfPages=8, userType=ASSISTANT }]
+
+[PRINT:   3 pages] ==> arrived:  827, started:  831, finished:  834, waiting:    4, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=748, numberOfPages=5, userType=ASSISTANT }, PrintJob { arrivalTime=762, numberOfPages=8, userType=ASSISTANT }]
+[PRINT:   5 pages] ==> arrived:  748, started:  834, finished:  839, waiting:   86, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=762, numberOfPages=8, userType=ASSISTANT }]
+[PRINT:   7 pages] ==> arrived:  836, started:  839, finished:  846, waiting:    3, userType:    ASSISTANT, currentQueue: [PrintJob { arrivalTime=762, numberOfPages=8, userType=ASSISTANT }]
+
+[PRINT:   8 pages] ==> arrived:  762, started:  846, finished:  854, waiting:   84, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:   1 pages] ==> arrived:  873, started:  873, finished:  874, waiting:    0, userType:    ASSISTANT, currentQueue: []
+
+[PRINT:  12 pages] ==> arrived:  891, started:  891, finished:  903, waiting:    0, userType:   INSTRUCTOR, currentQueue: []
+
+[PRINT:   3 pages] ==> arrived:  894, started:  903, finished:  906, waiting:    9, userType:   INSTRUCTOR, currentQueue: []
+
+[PRINT:  50 pages] ==> arrived:  905, started:  906, finished:  956, waiting:    1, userType:    SECRETARY, currentQueue: []
+
+[PRINT:   6 pages] ==> arrived:  934, started:  956, finished:  962, waiting:   22, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=941, numberOfPages=15, userType=INSTRUCTOR }, PrintJob { arrivalTime=918, numberOfPages=27, userType=ASSISTANT }]
+[PRINT:  15 pages] ==> arrived:  941, started:  962, finished:  977, waiting:   21, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=918, numberOfPages=27, userType=ASSISTANT }]
+[PRINT:   7 pages] ==> arrived:  969, started:  977, finished:  984, waiting:    8, userType:      STUDENT, currentQueue: [PrintJob { arrivalTime=918, numberOfPages=27, userType=ASSISTANT }]
+
+[PRINT:  15 pages] ==> arrived:  983, started:  984, finished:  999, waiting:    1, userType:   INSTRUCTOR, currentQueue: [PrintJob { arrivalTime=918, numberOfPages=27, userType=ASSISTANT }]
+[PRINT:  27 pages] ==> arrived:  918, started:  999, finished: 1026, waiting:   81, userType:    ASSISTANT, currentQueue: []
+[PRINT:   9 pages] ==> arrived: 1014, started: 1026, finished: 1035, waiting:   12, userType:    ASSISTANT, currentQueue: []
+Total Waiting Time: 1330
