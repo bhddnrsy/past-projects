@@ -3,7 +3,7 @@ Created a simple calculator application with Java, which gets the expression as 
 checks the syntax for basic arithmetic operations, and gives the output to the user if the expression is acceptable or not. 
 In addition, it gives the result as output. Here is the syntax grammar for our basic arithmetic operations :
 	
-	Expression  	-   E   ->   (E) | NON | N | ε
+	Expression  		-   E   ->   (E) | NON | N | ε
 	Digit 			-   D   ->   “0” | “1” | “2” | “3” | “4” | “5” | “6” | “7” | “8” | “9”
 	Number			-   N   ->   D | DN
 	Operand			-   O   ->   “+” | “-” | “*” | “/” | “^”
